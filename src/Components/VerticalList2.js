@@ -19,7 +19,7 @@ const reorder = (list, startIndex, endIndex) => {
 
 let newItemIndex = 0
 let listNumber = 2
-let droppableNummber = 3
+let droppableNumber = 3
 let startAt = 10
 
 /**
@@ -27,7 +27,6 @@ let startAt = 10
  */
 const move = (source, destination, droppableSource, droppableDestination) => {
     const sourceClone = Array.from(source);
-    console.log(destination)
     const destClone = Array.from(destination);
     const [removed] = sourceClone.splice(droppableSource.index, 1);
 
@@ -78,31 +77,28 @@ export default class VerticalList2 extends Component {
     };
 
     createNewList = listName => {
-        let listId = 'droppable' + droppableNummber
-        droppableNummber++
+        let listId = 'droppable' + droppableNumber
         let items = getItems(1, startAt)
-        startAt++
 
         this.setState({ ...this.state, [listName]: items })
         this.id2List = { ...this.id2List, [listId]: listName }
 
+        droppableNumber++
+        startAt++
         listNumber++
     }
 
     addToList = listName => {
-        console.log(listName)
         newItemIndex++
         let items = this.state[listName]
-        console.log(items)
         items.push({ id: `new-item-${newItemIndex}`, content: `new content ${newItemIndex}` })
-        console.log(items)
         this.setState({ [listName]: items })
     }
 
     getList = id => this.state[this.id2List[id]];
 
     onDragEnd = result => {
-        console.log(result)
+
         const { source, destination } = result;
 
         // dropped outside the list
@@ -132,7 +128,7 @@ export default class VerticalList2 extends Component {
             
             let listFrom = this.id2List[source.droppableId]
             let listTo = this.id2List[destination.droppableId]
-            console.log(source.droppableId, destination.droppableId, result[source.droppableId])
+
             this.setState({
                 [listFrom]: result[source.droppableId],
                 [listTo]: result[destination.droppableId]
@@ -144,16 +140,16 @@ export default class VerticalList2 extends Component {
 
         let theLists = this.state
         theLists = Object.entries(theLists);
-        console.log(this.state)
 
         const lists = theLists.map((list, index) => {
             let listName = Object.entries(this.id2List)
             let listId = list[0]
-            console.log(listName[index])
             listName = listName[index][0]
 
             return (
                 <div key={listId}>
+                <button onClick={() => { this.addToList(`${listId}`)} }>Add to list {listId}</button>
+                    <h1>{listId}</h1>
                     <Droppable droppableId={listName}>
                         {(provided, snapshot) => (
                             <div
@@ -182,19 +178,18 @@ export default class VerticalList2 extends Component {
                             </div>
                         )}
                     </Droppable>
-                    <button onClick={() => { this.addToList(`${listId}`)} }>Add to list {listId}</button>
                 </div>
             );
         });
 
         return (
             <Fragment>
+            <button onClick={() => { this.createNewList(`newlist${listNumber}`) }}>Add list</button>
                 <DragDropContext onDragEnd={this.onDragEnd}>
                     <div style={{ display: 'flex' }}>
                         {lists}
                     </div>
                 </DragDropContext>
-                <button onClick={() => { this.createNewList(`newlist${listNumber}`) }}>Add list</button>
             </Fragment>
         );
     }

@@ -20,6 +20,28 @@ button {
   margin: 10px;
 }
 
-.list-class {
-  width: 500px;
+.list-items-style {
+  width: 200px;
+  z-index: 1;
+  background-color: lightgray;
+  padding: 5px;
+}
+
+.item-style {
+  border: 1px solid black;
+  padding: 5px;
+  z-index: 2;
+  background-color: gray;
+}
+
+.list-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  z-index: 0;
+}
+
+.my-lists {
+  display: flex;
+  flex-direction: column;
 }

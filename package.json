@@ -2,7 +2,7 @@
   "name": "trello-clone",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://djmorosini.github.io/trello-clone",
+  "homepage": "https://djmorosini.github.io/trello-clone",
   "dependencies": {
     "react": "^16.6.3",
     "react-beautiful-dnd": "^10.0.1",

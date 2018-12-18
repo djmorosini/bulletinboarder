@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 // fake data generator
@@ -18,9 +18,8 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 let newItemIndex = 0
-let listNumber = 2
-let droppableNumber = 3
-let startAt = 10
+let droppableNumber = 2
+let startAt = 5
 
 /**
  * Moves an item from one list to another list.
@@ -60,10 +59,9 @@ const getListStyle = isDraggingOver => ({
     width: 250
 });
 
-export default class VerticalList2 extends Component {
+export default class SomeLists extends Component {
     state = {
         newlist0: getItems(5),
-        newlist1: getItems(5, 5)
     };
 
     /**
@@ -73,7 +71,6 @@ export default class VerticalList2 extends Component {
      */
     id2List = {
         droppable1: 'newlist0',
-        droppable2: 'newlist1'
     };
 
     createNewList = listName => {
@@ -85,7 +82,6 @@ export default class VerticalList2 extends Component {
 
         droppableNumber++
         startAt++
-        listNumber++
     }
 
     addToList = listName => {
@@ -125,7 +121,7 @@ export default class VerticalList2 extends Component {
                 source,
                 destination
             );
-            
+
             let listFrom = this.id2List[source.droppableId]
             let listTo = this.id2List[destination.droppableId]
 
@@ -148,8 +144,8 @@ export default class VerticalList2 extends Component {
 
             return (
                 <div key={listId}>
-                <button onClick={() => { this.addToList(`${listId}`)} }>Add to list {listId}</button>
-                    <h1>{listId}</h1>
+                    <button onClick={() => { this.addToList(`${listId}`) }}>Add to list {this.props.id}</button>
+                    <h1>List {this.props.id}</h1>
                     <Droppable droppableId={listName}>
                         {(provided, snapshot) => (
                             <div
@@ -183,14 +179,11 @@ export default class VerticalList2 extends Component {
         });
 
         return (
-            <Fragment>
-            <button onClick={() => { this.createNewList(`newlist${listNumber}`) }}>Add list</button>
-                <DragDropContext onDragEnd={this.onDragEnd}>
+                <DragDropContext key={this.props.id} onDragEnd={this.onDragEnd}>
                     <div style={{ display: 'flex' }}>
                         {lists}
                     </div>
                 </DragDropContext>
-            </Fragment>
         );
     }
 }

@@ -19,3 +19,7 @@ h1 {
 button {
   margin: 10px;
 }
+
+.list-class {
+  width: 500px;
+}

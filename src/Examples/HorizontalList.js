@@ -39,7 +39,7 @@ const getListStyle = isDraggingOver => ({
   overflow: 'auto',
 });
 
-export default class HorizontalList extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -89,6 +89,7 @@ export default class HorizontalList extends Component {
                         provided.draggableProps.style
                       )}
                     >
+                      {console.log(item.id)}
                       {item.content}
                     </div>
                   )}

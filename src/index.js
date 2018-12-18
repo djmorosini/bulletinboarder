@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import VerticalList2 from './Components/VerticalList2';
+import App from './Components/App';
+import Board from './Components/Board'
+import OtherBoard from './Examples/TheBoard'
 import * as serviceWorker from './serviceWorker';
+import { authorQuoteMap } from './Examples/data'
 
-ReactDOM.render(<VerticalList2 />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

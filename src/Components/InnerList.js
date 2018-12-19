@@ -34,7 +34,7 @@ export default class InnerList extends Component {
 
       return (
         <div key={listId}>
-          <button onClick={() => { this.props.popupSwitch('block', listName) }}>Add to {listName}</button>
+          <button onClick={() => { this.props.popupSwitch('block', listName, listId) }}>Add to {listName}</button>
           <h1>{listName}</h1>
           <Droppable droppableId={listId}>
             {(provided, snapshot) => (

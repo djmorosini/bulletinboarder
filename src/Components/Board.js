@@ -9,7 +9,7 @@ const listenForEnterKey = (selector, callback) => {
       if (selector === '#list-name-input') {
         callback(callbackValue);
       } else {
-        let callbackValue2 = document.querySelector('#item-popup-title').textContent
+        let callbackValue2 = document.querySelector('#list-id').textContent
         callback(callbackValue2, callbackValue);
       }
     }
@@ -104,7 +104,6 @@ export default class Board extends Component {
   createNewList = (listName) => {
     let listId = 'droppable' + this.droppableNumber
     let items = []
-
     let listArray = this.state.lists
     let newList = { listName: listName, id: listId, items: items }
     listArray.push(newList)
@@ -116,13 +115,13 @@ export default class Board extends Component {
     this.droppableNumber++
   }
 
-  addToList = (listFrom, content) => {
+  addToList = (listId, content) => {
     let lists = this.state.lists
-    const result = lists.find(list => list.listName === listFrom);
+    const result = lists.find(list => list.id === listId);
     let items = result.items
     items.push({ id: `item-${this.itemIndex}`, content: content })
     this.itemIndex++
-    this.setState({ lists: lists.map(list => list.listName === listFrom ? list = { ...list, items: items } : list) })
+    this.setState({ lists: lists.map(list => list.id === listId ? list = { ...list, items: items } : list) })
     this.switchItemPopup('none')
   }
 
@@ -209,7 +208,7 @@ export default class Board extends Component {
     }
   }
 
-  switchItemPopup = (display, listName) => {
+  switchItemPopup = (display, listName, listId) => {
     let itemPopup = document.getElementById('item-pop-up')
     let itemPopupInput = document.getElementById('item-content-input')
     if (display === 'none') {
@@ -219,6 +218,8 @@ export default class Board extends Component {
       this.switchListPopup('none')
       let popupTitle = document.getElementById('item-popup-title')
       popupTitle.textContent = listName
+      let idDiv = document.getElementById('list-id')
+      idDiv.textContent = listId
       itemPopup.style = 'display: block;'
       setCaretPosition('item-content-input', 0)
     }
@@ -272,8 +273,9 @@ export default class Board extends Component {
           <button className='close-buttons' style={{ float: 'right' }} onClick={() => this.switchItemPopup('none')}>X</button>
           <br />
           <div>Add item to <span id='item-popup-title'></span></div>
+          <div style={{ display: 'none' }} id='list-id'></div>
           <input id='item-content-input' placeholder='Enter item content' />
-          <button onClick={() => this.addToList(document.getElementById('item-popup-title').textContent, `${document.getElementById('item-content-input').value}`)}>Create Item</button>
+          <button onClick={() => this.addToList(document.getElementById('list-id').innerText, `${document.getElementById('item-content-input').value}`)}>Create Item</button>
         </div>
       </div>
     );

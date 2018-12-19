@@ -45,10 +45,11 @@ let startAt = 0
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
-  padding: 16,
+  padding: 5,
   margin: `0 8px 0 0`,
   overflow: 'auto',
   height: '90%',
+  border: '1px solid black',
 
   // change background colour if dragging
   background: isDragging ? 'lightgreen' : 'grey',
@@ -64,7 +65,8 @@ const getListStyle = isDraggingOver => ({
   flexWrap: 'no-wrap',
   overflow: 'auto',
   width: '98vw',
-  height: '90vh'
+  height: '90vh',
+  alignSelf: 'center'
 });
 
 export default class Board extends Component {

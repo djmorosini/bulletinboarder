@@ -38,17 +38,17 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 };
 
 let newItemIndex = 0
-let listNumber = 2
-let droppableNumber = 3
-let startAt = 3
-
-const grid = 8;
+let listNumber = 0
+let droppableNumber = 0
+let startAt = 0
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
-  padding: grid * 2,
-  margin: `0 ${grid}px 0 0`,
+  padding: 16,
+  margin: `0 8px 0 0`,
+  overflow: 'auto',
+  height: '90%',
 
   // change background colour if dragging
   background: isDragging ? 'lightgreen' : 'grey',
@@ -60,21 +60,19 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? 'lightblue' : 'lightgrey',
   display: 'flex',
-  padding: grid
+  padding: 8,
+  flexWrap: 'no-wrap',
+  overflow: 'auto',
+  width: '98vw',
+  height: '90vh'
 });
 
 export default class Board extends Component {
   constructor(props) {
     super(props);
-    this.id2List = {
-      droppable1: 'newList0',
-      droppable2: 'newList1'
-    };
+    this.id2List = {};
     this.state = {
-      lists: [
-        { listName: 'newList0', id: 'droppable1', items: [{ id: `item-0`, content: `item 0` }, { id: `item-1`, content: `item 1` }] },
-        { listName: 'newList1', id: 'droppable2', items: [{ id: `item-2`, content: `item 2` }] }
-      ]
+      lists: []
     };
   }
 
@@ -95,12 +93,12 @@ export default class Board extends Component {
   }
 
   addToList = listFrom => {
-    newItemIndex++
     listFrom = this.id2List[listFrom]
     let lists = this.state.lists
     const result = lists.find(list => list.listName === listFrom);
     let items = result.items
     items.push({ id: `new-item-${newItemIndex}`, content: `new content ${newItemIndex}` })
+    newItemIndex++
     this.setState({ lists: lists.map(list => list.listName === listFrom ? list = { ...list, items: items } : list) })
   }
 

@@ -4,6 +4,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
 }
 
 code {
@@ -18,28 +20,4 @@ h1 {
 
 button {
   margin: 10px;
-}
-
-.list-items-style {
-  width: 200px;
-  background-color: lightgray;
-  padding: 5px;
-}
-
-.item-style {
-  border: 1px solid black;
-  padding: 5px;
-  background-color: gray;
-}
-
-.list-wrap {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-}
-
-.my-lists {
-  display: flex;
-  flex-direction: column;
-  min-height: 60px;
 }

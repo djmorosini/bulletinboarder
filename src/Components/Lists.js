@@ -1,13 +1,12 @@
 import React, { Fragment, Component } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-const grid = 8;
-
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
-  padding: grid * 2,
-  margin: `0 ${grid}px 0 0`,
+  padding: 16,
+  margin: `0 0 4px 0`,
+  border: '1px solid black',
 
   // change background colour if dragging
   background: isDragging ? 'lightgreen' : 'grey',
@@ -18,8 +17,9 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
 const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  display: 'flex',
-  padding: grid
+  padding: 8,
+  width: 250,
+  minHeight: '60px'
 });
 
 export default class Lists extends Component {

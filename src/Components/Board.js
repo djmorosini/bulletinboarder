@@ -127,8 +127,7 @@ export default class Board extends Component {
 
   getList = (id) => {
     let lists = this.state.lists
-    let listFrom = this.id2List[id]
-    let result = lists.find(list => list.listName === listFrom);
+    let result = lists.find(list => list.id === id);
     return result
   };
 
@@ -163,8 +162,7 @@ export default class Board extends Component {
           destination.index
         );
 
-        let listFrom = this.id2List[source.droppableId]
-        this.setState({ lists: this.state.lists.map(list => list.listName === listFrom ? list = { ...list, items: items } : list) })
+        this.setState({ lists: this.state.lists.map(list => list.id === source.droppableId ? list = { ...list, items: items } : list) })
 
       } else {
         const result = move(
@@ -174,22 +172,19 @@ export default class Board extends Component {
           destination
         );
 
-        let listFrom = this.id2List[source.droppableId]
-        let listTo = this.id2List[destination.droppableId]
-
         let destinationArray = []
-        for (let dresults of result[destination.droppableId]) {
-          destinationArray.push(dresults)
+        for (let destResults of result[destination.droppableId]) {
+          destinationArray.push(destResults)
         }
 
         let sourceArray = []
-        for (let sresults of result[source.droppableId]) {
-          sourceArray.push(sresults)
+        for (let srcResults of result[source.droppableId]) {
+          sourceArray.push(srcResults)
         }
 
         this.setState({
-          lists: this.state.lists.map(list => list.listName === listFrom ? list = { ...list, items: sourceArray } :
-            list.listName === listTo ? list = { ...list, items: destinationArray } : list)
+          lists: this.state.lists.map(list => list.id === source.droppableId ? list = { ...list, items: sourceArray } :
+            list.id === destination.droppableId ? list = { ...list, items: destinationArray } : list)
         })
       }
     }

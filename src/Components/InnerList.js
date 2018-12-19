@@ -4,9 +4,10 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
-  padding: 16,
+  padding: '16px',
   margin: `0 0 4px 0`,
   border: '1px solid black',
+  width: '200px',
 
   // change background colour if dragging
   background: isDragging ? 'lightgreen' : 'grey',
@@ -17,12 +18,13 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
 const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  padding: 8,
-  width: 250,
-  minHeight: 370
+  padding: '8px',
+  width: '250px',
+  height: '370px',
+  overflow: 'auto'
 });
 
-export default class Lists extends Component {
+export default class InnerList extends Component {
 
   render() {
     if (this.props.list) {
@@ -32,7 +34,7 @@ export default class Lists extends Component {
 
       return (
         <div key={listId}>
-          <button onClick={() => { this.props.popupSwitch('block', listName) } }>Add to {listName}</button>
+          <button onClick={() => { this.props.popupSwitch('block', listName) }}>Add to {listName}</button>
           <h1>{listName}</h1>
           <Droppable droppableId={listId}>
             {(provided, snapshot) => (

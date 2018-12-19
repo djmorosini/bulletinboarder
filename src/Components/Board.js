@@ -1,6 +1,6 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import Lists from './Lists'
+import InnerList from './InnerList'
 
 const listenForEnterKey = (selector, callback) => {
   document.querySelector(selector).addEventListener('keypress', function (e) {
@@ -73,11 +73,10 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
-  padding: 10,
+  padding: '10px 10px 0 15px',
   margin: `0 8px 0 0`,
-  overflow: 'auto',
-  height: '90%',
-  width: 280,
+  height: '95%',
+  width: '280px',
   border: '1px solid black',
 
   // change background colour if dragging
@@ -90,7 +89,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? 'lightblue' : 'lightgrey',
   display: 'flex',
-  padding: 8,
+  padding: '8px',
   flexWrap: 'no-wrap',
   overflow: 'auto',
   width: '98vw',
@@ -240,7 +239,7 @@ export default class Board extends Component {
   render() {
 
     return (
-      <Fragment>
+      <div id='board'>
         <button onClick={() => { this.switchListPopup('block') }}>Add list</button>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" direction="horizontal" type='COLUMN'>
@@ -264,7 +263,7 @@ export default class Board extends Component {
                             provided.draggableProps.style
                           )}
                         >
-                          <Lists popupSwitch={this.switchItemPopup} list={list} />
+                          <InnerList popupSwitch={this.switchItemPopup} list={list} />
                         </div>
                       )}
                     </Draggable>
@@ -288,7 +287,7 @@ export default class Board extends Component {
           <input id='item-content-input' placeholder='Enter item content' />
           <button onClick={() => this.addToList(document.getElementById('item-popup-title').textContent, `${document.getElementById('item-content-input').value}`)}>Create Item</button>
         </div>
-      </Fragment>
+      </div>
     );
   }
 }

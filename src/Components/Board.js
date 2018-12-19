@@ -2,6 +2,34 @@ import React, { Fragment, Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Lists from './Lists'
 
+function setCaretPosition(elemId, caretPos) {
+  var el = document.getElementById(elemId);
+
+  if (el !== null) {
+
+    el.value = el.value;
+
+    if (el.createTextRange) {
+      var range = el.createTextRange();
+      range.move('character', caretPos);
+      range.select();
+      return true;
+
+    } else {
+      // (el.selectionStart === 0 added for Firefox bug)
+      if (el.selectionStart || el.selectionStart === 0) {
+        el.focus();
+        el.setSelectionRange(caretPos, caretPos);
+        return true;
+
+      } else { // fail city, fortunately this never happens (as far as I've tested) :)
+        el.focus();
+        return false;
+      }
+    }
+  }
+}
+
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
   let result
@@ -47,7 +75,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle
 });
 
-const getListStyle = isDraggingOver => ({
+const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? 'lightblue' : 'lightgrey',
   display: 'flex',
   padding: 8,
@@ -69,7 +97,7 @@ export default class Board extends Component {
     };
   }
 
-  createNewList = listName => {
+  createNewList = (listName) => {
     let listId = 'droppable' + this.droppableNumber
     let items = []
 
@@ -94,7 +122,7 @@ export default class Board extends Component {
     this.setState({ lists: lists.map(list => list.listName === listFrom ? list = { ...list, items: items } : list) })
   }
 
-  getList = id => {
+  getList = (id) => {
     let lists = this.state.lists
     let listFrom = this.id2List[id]
     let result = lists.find(list => list.listName === listFrom);
@@ -167,22 +195,28 @@ export default class Board extends Component {
   switchListPopup = (display) => {
     let listPopup = document.getElementById('list-pop-up')
     if (display === 'none') {
+      let listNameInput = document.getElementById('list-name-input')
       listPopup.style = 'display: none;'
+      listNameInput.value = ''
     } else {
       this.switchItemPopup('none')
       listPopup.style = 'display: block;'
+      setCaretPosition('list-name-input', 0)
     }
   }
 
   switchItemPopup = (display, listName) => {
     let itemPopup = document.getElementById('item-pop-up')
     if (display === 'none') {
+      let itemPopupInput = document.getElementById('item-content-input')
       itemPopup.style = 'display: none;'
+      itemPopupInput.value = ''
     } else {
       this.switchListPopup('none')
       let popupTitle = document.getElementById('item-popup-title')
       popupTitle.textContent = listName
       itemPopup.style = 'display: block;'
+      setCaretPosition('item-content-input', 0)
     }
   }
 
@@ -235,7 +269,7 @@ export default class Board extends Component {
           <br />
           <div>Add item to <span id='item-popup-title'></span></div>
           <input id='item-content-input' placeholder='Enter item content' />
-          <button onClick={() => this.addToList(document.getElementById('item-popup-title').innerText, `${document.getElementById('item-content-input').value}`)}>Create Item</button>
+          <button onClick={() => this.addToList(document.getElementById('item-popup-title').textContent, `${document.getElementById('item-content-input').value}`)}>Create Item</button>
         </div>
       </Fragment>
     );

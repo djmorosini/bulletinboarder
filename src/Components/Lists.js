@@ -15,11 +15,11 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle
 });
 
-const getListStyle = isDraggingOver => ({
+const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? 'lightblue' : 'lightgrey',
   padding: 8,
   width: 250,
-  minHeight: 350
+  minHeight: 370
 });
 
 export default class Lists extends Component {

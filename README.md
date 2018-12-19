@@ -1,3 +1,11 @@
+[List Maker](https://djmorosini.github.io/list-maker/)
+
+To run locally;
+
+1. git clone https://github.com/djmorosini/list-maker.git
+2. npm install
+3. npm start
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

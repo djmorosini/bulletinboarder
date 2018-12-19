@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 const grid = 8;
 
@@ -23,7 +23,7 @@ const getListStyle = isDraggingOver => ({
 });
 
 export default class Lists extends Component {
-  
+
   render() {
     if (this.props.list) {
       let list = this.props.list
@@ -37,30 +37,30 @@ export default class Lists extends Component {
           <Droppable droppableId={listId}>
             {(provided, snapshot) => (
               <div
-              className='my-lists'
+                className='my-lists'
                 ref={provided.innerRef}
                 style={getListStyle(snapshot.isDraggingOver)}>
                 {list.items.map((item, index) => (
-                  <Fragment>
+                  <Fragment key={index}>
                     {item ?
-                  <Draggable
-                    key={item ? item.id : index}
-                    draggableId={item ? item.id : index}
-                    index={index}>
-                    {(provided, snapshot) => (
-                      <div
-                      className='item-style'
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={getItemStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )}>
-                        {item.content}
-                      </div>
-                    )}
-                  </Draggable> : <div></div>}
+                      <Draggable
+                        key={item.id}
+                        draggableId={item.id}
+                        index={index}>
+                        {(provided, snapshot) => (
+                          <div
+                            className='item-style'
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            style={getItemStyle(
+                              snapshot.isDragging,
+                              provided.draggableProps.style
+                            )}>
+                            {item.content}
+                          </div>
+                        )}
+                      </Draggable> : <div className='no-items'></div>}
                   </Fragment>
                 ))}
                 {provided.placeholder}

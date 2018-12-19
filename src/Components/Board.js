@@ -2,28 +2,45 @@ import React, { Fragment, Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Lists from './Lists'
 
+function listenForEnterKey(selector, callback) {
+  document.querySelector(selector).addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      let callbackValue
+      if (selector === '#list-name-input') {
+        callbackValue = document.querySelector(selector).value
+        callback(callbackValue);
+      } else {
+        callbackValue = document.querySelector(selector).value
+        let callbackValue2 = document.querySelector('#item-popup-title').textContent
+        console.log(callbackValue2, callbackValue)
+        callback(callbackValue2, callbackValue);
+      }
+    }
+  });
+}
+
 function setCaretPosition(elemId, caretPos) {
-  var el = document.getElementById(elemId);
+  let element = document.getElementById(elemId);
 
-  if (el !== null) {
+  if (element !== null) {
 
-    el.value = el.value;
+    // element.value = element.value;
 
-    if (el.createTextRange) {
-      var range = el.createTextRange();
+    if (element.createTextRange) {
+      var range = element.createTextRange();
       range.move('character', caretPos);
       range.select();
       return true;
 
     } else {
       // (el.selectionStart === 0 added for Firefox bug)
-      if (el.selectionStart || el.selectionStart === 0) {
-        el.focus();
-        el.setSelectionRange(caretPos, caretPos);
+      if (element.selectionStart || element.selectionStart === 0) {
+        element.focus();
+        element.setSelectionRange(caretPos, caretPos);
         return true;
 
       } else { // fail city, fortunately this never happens (as far as I've tested) :)
-        el.focus();
+        element.focus();
         return false;
       }
     }
@@ -97,6 +114,11 @@ export default class Board extends Component {
     };
   }
 
+  componentDidMount() {
+    listenForEnterKey("#list-name-input", this.createNewList);
+    listenForEnterKey("#item-content-input", this.addToList);
+  }
+
   createNewList = (listName) => {
     let listId = 'droppable' + this.droppableNumber
     let items = []
@@ -113,13 +135,13 @@ export default class Board extends Component {
   }
 
   addToList = (listFrom, content) => {
-    this.switchItemPopup('none')
     let lists = this.state.lists
     const result = lists.find(list => list.listName === listFrom);
     let items = result.items
     items.push({ id: `item-${this.itemIndex}`, content: content })
     this.itemIndex++
     this.setState({ lists: lists.map(list => list.listName === listFrom ? list = { ...list, items: items } : list) })
+    this.switchItemPopup('none')
   }
 
   getList = (id) => {
@@ -194,8 +216,8 @@ export default class Board extends Component {
 
   switchListPopup = (display) => {
     let listPopup = document.getElementById('list-pop-up')
+    let listNameInput = document.getElementById('list-name-input')
     if (display === 'none') {
-      let listNameInput = document.getElementById('list-name-input')
       listPopup.style = 'display: none;'
       listNameInput.value = ''
     } else {
@@ -207,8 +229,8 @@ export default class Board extends Component {
 
   switchItemPopup = (display, listName) => {
     let itemPopup = document.getElementById('item-pop-up')
+    let itemPopupInput = document.getElementById('item-content-input')
     if (display === 'none') {
-      let itemPopupInput = document.getElementById('item-content-input')
       itemPopup.style = 'display: none;'
       itemPopupInput.value = ''
     } else {

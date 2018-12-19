@@ -2,30 +2,25 @@ import React, { Fragment, Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Lists from './Lists'
 
-function listenForEnterKey(selector, callback) {
+const listenForEnterKey = (selector, callback) => {
   document.querySelector(selector).addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
-      let callbackValue
+      let callbackValue = document.querySelector(selector).value
       if (selector === '#list-name-input') {
-        callbackValue = document.querySelector(selector).value
         callback(callbackValue);
       } else {
-        callbackValue = document.querySelector(selector).value
         let callbackValue2 = document.querySelector('#item-popup-title').textContent
-        console.log(callbackValue2, callbackValue)
         callback(callbackValue2, callbackValue);
       }
     }
   });
 }
 
-function setCaretPosition(elemId, caretPos) {
+const setCaretPosition = (elemId, caretPos) => {
   let element = document.getElementById(elemId);
 
   if (element !== null) {
-
     // element.value = element.value;
-
     if (element.createTextRange) {
       var range = element.createTextRange();
       range.move('character', caretPos);
@@ -280,14 +275,14 @@ export default class Board extends Component {
             )}
           </Droppable>
         </DragDropContext>
-        <div id='list-pop-up'>
-          <button style={{ float: 'right' }} onClick={() => this.switchListPopup('none')}>X</button>
+        <div id='list-pop-up' className='pop-ups'>
+          <button className='close-buttons' style={{ float: 'right' }} onClick={() => this.switchListPopup('none')}>X</button>
           <br />
           <input id='list-name-input' placeholder='Enter list name' />
           <button onClick={() => this.createNewList(`${document.getElementById('list-name-input').value}`)}>Create List</button>
         </div>
-        <div id='item-pop-up'>
-          <button style={{ float: 'right' }} onClick={() => this.switchItemPopup('none')}>X</button>
+        <div id='item-pop-up' className='pop-ups'>
+          <button className='close-buttons' style={{ float: 'right' }} onClick={() => this.switchItemPopup('none')}>X</button>
           <br />
           <div>Add item to <span id='item-popup-title'></span></div>
           <input id='item-content-input' placeholder='Enter item content' />

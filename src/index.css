@@ -19,10 +19,10 @@ h1 {
 }
 
 button {
-  margin: 10px;
+  margin: 5px;
 }
 
-#list-pop-up {
+.pop-ups {
   display: none;
   height: 100px;
   width: 400px;
@@ -35,17 +35,20 @@ button {
   box-shadow: 5px 8px 16px 0px rgba(0, 0, 0, 0.4);
 }
 
-#item-pop-up {
-  display: none;
-  height: 100px;
-  width: 400px;
-  padding: 10px;
-  background-color: white;
+.close-buttons {
+  background-color: rgb(165, 0, 0);
+  color: white;
   border: 1px solid black;
-  position: absolute;
-  top: 200px;
-  left: 200px;
-  box-shadow: 5px 8px 16px 0px rgba(0, 0, 0, 0.4);
+  text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+  box-shadow: 2px 3px 6px 0px rgba(0, 0, 0, 0.3);
+}
+
+.close-buttons:hover {
+  background-color: red;
 }
 
 @media (max-width: 800px){

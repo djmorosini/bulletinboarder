@@ -11,7 +11,12 @@ const getItems = (count, offset = 0) =>
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list.items);
+  let result
+  if (list.items) {
+    result = Array.from(list.items)
+  } else {
+    result = Array.from(list);
+  }
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
 
@@ -96,7 +101,7 @@ export default class NewApp extends Component {
     const result = lists.find(list => list.listName === listFrom);
     let items = result.items
     items.push({ id: `new-item-${newItemIndex}`, content: `new content ${newItemIndex}` })
-    this.setState({ lists: lists.map(list => list.listName === listFrom ? list = {...list, items: items } : list) })
+    this.setState({ lists: lists.map(list => list.listName === listFrom ? list = { ...list, items: items } : list) })
   }
 
   getList = id => {
@@ -138,7 +143,7 @@ export default class NewApp extends Component {
         );
 
         let listFrom = this.id2List[source.droppableId]
-        this.setState({ lists: this.state.lists.map(list => list.listName === listFrom ? list = {...list, items: items } : list) })
+        this.setState({ lists: this.state.lists.map(list => list.listName === listFrom ? list = { ...list, items: items } : list) })
 
       } else {
         const result = move(
@@ -162,8 +167,8 @@ export default class NewApp extends Component {
         }
 
         this.setState({
-          lists: this.state.lists.map(list => list.listName === listFrom ? list = {...list, items: sourceArray } :
-            list.listName === listTo ? list = {...list, items: destinationArray } : list)
+          lists: this.state.lists.map(list => list.listName === listFrom ? list = { ...list, items: sourceArray } :
+            list.listName === listTo ? list = { ...list, items: destinationArray } : list)
         })
       }
     }

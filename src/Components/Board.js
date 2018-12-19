@@ -2,13 +2,6 @@ import React, { Fragment, Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Lists from './Lists'
 
-// fake data generator
-const getItems = (count, offset = 0) =>
-  Array.from({ length: count }, (v, k) => k).map(k => ({
-    id: `item-${k + offset}`,
-    content: `item ${k + offset}`
-  }));
-
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
   let result
@@ -37,18 +30,14 @@ const move = (source, destination, droppableSource, droppableDestination) => {
   return result;
 };
 
-let newItemIndex = 0
-let listNumber = 0
-let droppableNumber = 0
-let startAt = 0
-
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
-  padding: 5,
+  padding: 10,
   margin: `0 8px 0 0`,
   overflow: 'auto',
   height: '90%',
+  width: 280,
   border: '1px solid black',
 
   // change background colour if dragging
@@ -72,6 +61,8 @@ const getListStyle = isDraggingOver => ({
 export default class Board extends Component {
   constructor(props) {
     super(props);
+    this.itemIndex = 0
+    this.droppableNumber = 0
     this.id2List = {};
     this.state = {
       lists: []
@@ -79,8 +70,8 @@ export default class Board extends Component {
   }
 
   createNewList = listName => {
-    let listId = 'droppable' + droppableNumber
-    let items = getItems(1, startAt)
+    let listId = 'droppable' + this.droppableNumber
+    let items = []
 
     let listArray = this.state.lists
     let newList = { listName: listName, id: listId, items: items }
@@ -89,18 +80,17 @@ export default class Board extends Component {
     this.setState({ lists: listArray })
     this.id2List = { ...this.id2List, [listId]: listName }
 
-    droppableNumber++
-    startAt++
-    listNumber++
+    this.switchListPopup('none')
+    this.droppableNumber++
   }
 
-  addToList = listFrom => {
-    listFrom = this.id2List[listFrom]
+  addToList = (listFrom, content) => {
+    this.switchItemPopup('none')
     let lists = this.state.lists
     const result = lists.find(list => list.listName === listFrom);
     let items = result.items
-    items.push({ id: `new-item-${newItemIndex}`, content: `new content ${newItemIndex}` })
-    newItemIndex++
+    items.push({ id: `item-${this.itemIndex}`, content: content })
+    this.itemIndex++
     this.setState({ lists: lists.map(list => list.listName === listFrom ? list = { ...list, items: items } : list) })
   }
 
@@ -174,11 +164,33 @@ export default class Board extends Component {
     }
   }
 
+  switchListPopup = (display) => {
+    let listPopup = document.getElementById('list-pop-up')
+    if (display === 'none') {
+      listPopup.style = 'display: none;'
+    } else {
+      this.switchItemPopup('none')
+      listPopup.style = 'display: block;'
+    }
+  }
+
+  switchItemPopup = (display, listName) => {
+    let itemPopup = document.getElementById('item-pop-up')
+    if (display === 'none') {
+      itemPopup.style = 'display: none;'
+    } else {
+      this.switchListPopup('none')
+      let popupTitle = document.getElementById('item-popup-title')
+      popupTitle.textContent = listName
+      itemPopup.style = 'display: block;'
+    }
+  }
+
   render() {
 
     return (
       <Fragment>
-        <button onClick={() => { this.createNewList(`newlist${listNumber}`) }}>Add list</button>
+        <button onClick={() => { this.switchListPopup('block') }}>Add list</button>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" direction="horizontal" type='COLUMN'>
             {(provided, snapshot) => (
@@ -201,7 +213,7 @@ export default class Board extends Component {
                             provided.draggableProps.style
                           )}
                         >
-                          <Lists addToList={this.addToList} list={list} />
+                          <Lists popupSwitch={this.switchItemPopup} list={list} />
                         </div>
                       )}
                     </Draggable>
@@ -212,6 +224,19 @@ export default class Board extends Component {
             )}
           </Droppable>
         </DragDropContext>
+        <div id='list-pop-up'>
+          <button style={{ float: 'right' }} onClick={() => this.switchListPopup('none')}>X</button>
+          <br />
+          <input id='list-name-input' placeholder='Enter list name' />
+          <button onClick={() => this.createNewList(`${document.getElementById('list-name-input').value}`)}>Create List</button>
+        </div>
+        <div id='item-pop-up'>
+          <button style={{ float: 'right' }} onClick={() => this.switchItemPopup('none')}>X</button>
+          <br />
+          <div>Add item to <span id='item-popup-title'></span></div>
+          <input id='item-content-input' placeholder='Enter item content' />
+          <button onClick={() => this.addToList(document.getElementById('item-popup-title').innerText, `${document.getElementById('item-content-input').value}`)}>Create Item</button>
+        </div>
       </Fragment>
     );
   }

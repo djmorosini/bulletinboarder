@@ -19,7 +19,7 @@ const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? 'lightblue' : 'lightgrey',
   padding: 8,
   width: 250,
-  minHeight: '60px'
+  minHeight: 350
 });
 
 export default class Lists extends Component {
@@ -32,7 +32,7 @@ export default class Lists extends Component {
 
       return (
         <div key={listId}>
-          <button onClick={() => { this.props.addToList(`${listId}`) }}>Add to list {listName}</button>
+          <button onClick={() => { this.props.popupSwitch('block', listName) } }>Add to {listName}</button>
           <h1>{listName}</h1>
           <Droppable droppableId={listId}>
             {(provided, snapshot) => (

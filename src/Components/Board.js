@@ -17,27 +17,15 @@ const listenForEnterKey = (selector, callback) => {
 }
 
 const setCaretPosition = (elemId, caretPos) => {
-  let element = document.getElementById(elemId);
-
-  if (element !== null) {
-    // element.value = element.value;
-    if (element.createTextRange) {
-      var range = element.createTextRange();
-      range.move('character', caretPos);
-      range.select();
-      return true;
-
-    } else {
-      // (el.selectionStart === 0 added for Firefox bug)
-      if (element.selectionStart || element.selectionStart === 0) {
-        element.focus();
-        element.setSelectionRange(caretPos, caretPos);
-        return true;
-
-      } else { // fail city, fortunately this never happens (as far as I've tested) :)
-        element.focus();
-        return false;
-      }
+  let elem = document.getElementById(elemId);
+  if (elem.createTextRange) {
+    let range = elem.createTextRange();
+    range.move('character', caretPos);
+    range.select();
+  } else {
+    elem.focus();
+    if (elem.selectionStart !== undefined) {
+      elem.setSelectionRange(caretPos, caretPos);
     }
   }
 }

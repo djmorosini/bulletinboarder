@@ -63,7 +63,7 @@ const getListStyle = isDraggingOver => ({
   padding: grid
 });
 
-export default class NewApp extends Component {
+export default class Board extends Component {
   constructor(props) {
     super(props);
     this.id2List = {
@@ -174,8 +174,6 @@ export default class NewApp extends Component {
     }
   }
 
-  // Normally you would want to split things out into separate components.
-  // But in this example everything is just done in one place for simplicity
   render() {
 
     return (

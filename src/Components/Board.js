@@ -9,8 +9,8 @@ const listenForEnterKey = (selector, callback) => {
       if (selector === '#list-name-input') {
         callback(callbackValue);
       } else {
-        let callbackValue2 = document.querySelector('#list-id').textContent
-        callback(callbackValue2, callbackValue);
+        let listId = document.querySelector('#list-id').textContent
+        callback(listId, callbackValue);
       }
     }
   });
@@ -90,7 +90,6 @@ export default class Board extends Component {
     super(props);
     this.itemIndex = 0
     this.droppableNumber = 0
-    this.id2List = {};
     this.state = {
       lists: []
     };
@@ -109,7 +108,6 @@ export default class Board extends Component {
     listArray.push(newList)
 
     this.setState({ lists: listArray })
-    this.id2List = { ...this.id2List, [listId]: listName }
 
     this.switchListPopup('none')
     this.droppableNumber++

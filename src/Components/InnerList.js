@@ -27,7 +27,6 @@ const getListStyle = (isDraggingOver) => ({
 export default class InnerList extends Component {
 
   render() {
-    if (this.props.list) {
       let list = this.props.list
       let listId = list.id
       let listName = list.listName
@@ -71,6 +70,5 @@ export default class InnerList extends Component {
           </Droppable>
         </div>
       );
-    }
   }
 }

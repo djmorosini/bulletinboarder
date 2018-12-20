@@ -30,8 +30,8 @@ button {
   background-color: white;
   border: 1px solid black;
   position: absolute;
-  top: 30vh;
-  left: 30vw;
+  top: 20vh;
+  left: 10vw;
   box-shadow: 5px 8px 16px 0px rgba(0, 0, 0, 0.4);
 }
 
@@ -55,7 +55,4 @@ button {
 }
 
 @media only screen and (max-device-width: 480px){
-  .pop-ups {
-    width: 50vw;
-  }
 }

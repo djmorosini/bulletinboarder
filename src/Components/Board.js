@@ -77,11 +77,12 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? 'lightblue' : 'lightgrey',
   display: 'flex',
-  padding: '8px',
+  padding: '20px 8px 8px 8px',
   flexWrap: 'no-wrap',
   overflow: 'auto',
   width: '98vw',
   height: '90vh',
+  border: '1px solid black',
   alignSelf: 'center'
 });
 
@@ -120,7 +121,9 @@ export default class Board extends Component {
     items.push({ id: `item-${this.itemIndex}`, content: content })
     this.itemIndex++
     this.setState({ lists: lists.map(list => list.id === listId ? list = { ...list, items: items } : list) })
-    this.switchItemPopup('none')
+
+    let itemPopupInput = document.getElementById('item-content-input')
+    itemPopupInput.value = ''
   }
 
   getList = (id) => {
@@ -221,12 +224,13 @@ export default class Board extends Component {
   render() {
 
     return (
-      <div id='board'>
+      <div id='board-wrap'>
         <button onClick={() => { this.switchListPopup('block') }}>Add list</button>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" direction="horizontal" type='COLUMN'>
             {(provided, snapshot) => (
               <div
+                id='board'
                 ref={provided.innerRef}
                 style={getListStyle(snapshot.isDraggingOver)}
                 {...provided.droppableProps}
@@ -268,7 +272,7 @@ export default class Board extends Component {
           <div>Add item to <span id='item-popup-title'></span></div>
           <div style={{ display: 'none' }} id='list-id'></div>
           <input id='item-content-input' placeholder='Enter item content' />
-          <button onClick={() => this.addToList(document.getElementById('list-id').innerText, `${document.getElementById('item-content-input').value}`)}>Create Item</button>
+          <button onClick={() => this.addToList(document.getElementById('list-id').textContent, `${document.getElementById('item-content-input').value}`)}>Create Item</button>
         </div>
       </div>
     );

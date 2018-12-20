@@ -259,13 +259,13 @@ export default class Board extends Component {
           </Droppable>
         </DragDropContext>
         <div id='list-pop-up' className='pop-ups'>
-          <button className='close-buttons' style={{ float: 'right' }} onClick={() => this.switchListPopup('none')}>X</button>
+          <button className='close-buttons' onClick={() => this.switchListPopup('none')}>X</button>
           <br />
           <input id='list-name-input' placeholder='Enter list name' />
           <button onClick={() => this.createNewList(`${document.getElementById('list-name-input').value}`)}>Create List</button>
         </div>
         <div id='item-pop-up' className='pop-ups'>
-          <button className='close-buttons' style={{ float: 'right' }} onClick={() => this.switchItemPopup('none')}>X</button>
+          <button className='close-buttons' onClick={() => this.switchItemPopup('none')}>X</button>
           <br />
           <div>Add item to <span id='item-popup-title'></span></div>
           <div style={{ display: 'none' }} id='list-id'></div>

@@ -30,7 +30,7 @@ button {
   background-color: white;
   border: 1px solid black;
   position: absolute;
-  top: 20vh;
+  top: 10vh;
   left: 10vw;
   box-shadow: 5px 8px 16px 0px rgba(0, 0, 0, 0.4);
 }

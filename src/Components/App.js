@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 import Board from './Board'
 
+const setCaretPosition = (elemId, caretPos) => {
+  let elem = document.getElementById(elemId);
+  if (elem.createTextRange) {
+    let range = elem.createTextRange();
+    range.move('character', caretPos);
+    range.select();
+  } else {
+    elem.focus();
+    if (elem.selectionStart !== undefined) {
+      elem.setSelectionRange(caretPos, caretPos);
+    }
+  }
+}
+
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -21,9 +35,11 @@ export default class App extends Component {
   }
 
   createBoard = (name) => {
+    this.switchBoardPopup('none')
     let boards = this.state.boards
-    boards.push({ boardId: `board-${this.boardNumber}`, boardName: name, lists: null })
-    this.setState({ boards: boards })
+    let newBoard = { boardId: `board-${this.boardNumber}`, boardName: name, lists: null }
+    boards.push(newBoard)
+    this.setState({ boards: boards, currentBoard: newBoard })
     this.boardNumber++
   }
 
@@ -60,9 +76,20 @@ export default class App extends Component {
     let boards = this.state.boards
     const result = boards.find(board => board.boardId === id);
     result.lists = lists
-    console.log(result, lists)
     this.setState({ boards: this.state.boards.map((board)=> board.boardId === id ? result : board) })
     this.setState({ currentBoard: null })
+  }
+
+  switchBoardPopup = (display) => {
+    let boardPopup = document.getElementById('board-pop-up')
+    let boardNameInput = document.getElementById('board-name-input')
+    if (display === 'none') {
+      boardPopup.style = 'display: none;'
+      boardNameInput.value = ''
+    } else {
+      boardPopup.style = 'display: block;'
+      setCaretPosition('board-name-input', 0)
+    }
   }
 
   render() {
@@ -87,8 +114,14 @@ export default class App extends Component {
             </div>
           </div>
           <div>
-            <button onClick={() => this.createBoard(`board ${this.boardNumber}`)}>Create board</button>
+            <button onClick={() => this.switchBoardPopup(`block`)}>Create board</button>
           </div>
+          <div id='board-pop-up' className='pop-ups'>
+          <button className='close-buttons' onClick={() => this.switchBoardPopup('none')}>X</button>
+          <br />
+          <input id='board-name-input' placeholder='Enter board name' />
+          <button onClick={() => this.createBoard(`${document.getElementById('board-name-input').value}`)}>Create board</button>
+        </div>
         </div>
       )
     }

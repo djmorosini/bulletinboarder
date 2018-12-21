@@ -24,7 +24,7 @@ button {
 
 .pop-ups {
   display: none;
-  height: 15vh;
+  height: fit-content;
   width: 300px;
   padding: 10px;
   background-color: white;
@@ -50,6 +50,18 @@ button {
 
 .close-buttons:hover {
   background-color: red;
+}
+
+.board-names {
+  background-color: lightgray;
+  padding: 5px;
+  border: 1px solid black;
+  margin-bottom: 5px;
+  width: 200px;
+}
+
+.board-names:hover {
+  background-color: lightgreen;
 }
 
 @media (max-width: 800px){

@@ -226,6 +226,9 @@ export default class Board extends Component {
     return (
       <div id='board-wrap'>
         <button onClick={() => { this.switchListPopup('block') }}>Add list</button>
+        <button onClick={() => this.props.closeBoard(`${this.props.boardInfo.boardId}`)} >Close board</button>
+        <button onClick={() => this.props.saveBoard(`${this.props.boardInfo.boardId}`)} >Save board</button>
+        <span>{this.props.boardInfo.boardName}</span>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" direction="horizontal" type='COLUMN'>
             {(provided, snapshot) => (

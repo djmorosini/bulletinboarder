@@ -22,22 +22,31 @@ export default class App extends Component {
 
   createBoard = (name) => {
     let boards = this.state.boards
-    boards.push({ boardId: `board-${this.boardNumber}`, boardName: name })
+    boards.push({ boardId: `board-${this.boardNumber}`, boardName: name, lists: null })
     this.setState({ boards: boards })
     this.boardNumber++
   }
 
-  saveBoard = (id) => {
+  saveBoard = (id, lists) => {
     let boards = this.state.boards
     const result = boards.find(board => board.boardId === id);
+    result.lists = lists
 
+    console.log(result)
     let savedBoards
     if (localStorage.getItem('boards')) {
       savedBoards = JSON.parse(localStorage.getItem('boards'))
+      for (let board of savedBoards) {
+        if (board.boardId === id) {
+          board = result
+        } else {
+          savedBoards.push(result)
+        }
+      }
     } else {
-      savedBoards = []
+      savedBoards = this.state.boards
     }
-    savedBoards.push(result)
+    this.setState({ boards: this.state.boards.map((board)=> board.boardId === id ? result : board) })
     localStorage.setItem('boards', JSON.stringify(savedBoards))
   }
 
@@ -47,7 +56,12 @@ export default class App extends Component {
     this.setState({ currentBoard: result })
   }
 
-  closeBoard = () => {
+  closeBoard = (id, lists) => {
+    let boards = this.state.boards
+    const result = boards.find(board => board.boardId === id);
+    result.lists = lists
+    console.log(result, lists)
+    this.setState({ boards: this.state.boards.map((board)=> board.boardId === id ? result : board) })
     this.setState({ currentBoard: null })
   }
 

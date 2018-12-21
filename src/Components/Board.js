@@ -16,20 +16,6 @@ const listenForEnterKey = (selector, callback) => {
   });
 }
 
-const setCaretPosition = (elemId, caretPos) => {
-  let elem = document.getElementById(elemId);
-  if (elem.createTextRange) {
-    let range = elem.createTextRange();
-    range.move('character', caretPos);
-    range.select();
-  } else {
-    elem.focus();
-    if (elem.selectionStart !== undefined) {
-      elem.setSelectionRange(caretPos, caretPos);
-    }
-  }
-}
-
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
   let result
@@ -204,7 +190,7 @@ export default class Board extends Component {
     } else {
       this.switchItemPopup('none')
       listPopup.style = 'display: block;'
-      setCaretPosition('list-name-input', 0)
+      this.props.setCaretPosition('list-name-input', 0)
     }
   }
 
@@ -221,7 +207,7 @@ export default class Board extends Component {
       let idDiv = document.getElementById('list-id')
       idDiv.textContent = listId
       itemPopup.style = 'display: block;'
-      setCaretPosition('item-content-input', 0)
+      this.props.setCaretPosition('item-content-input', 0)
     }
   }
 

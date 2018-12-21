@@ -15,6 +15,15 @@ const setCaretPosition = (elemId, caretPos) => {
   }
 }
 
+const listenForEnterKey = (selector, callback) => {
+  document.querySelector(selector).addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      let callbackValue = document.querySelector(selector).value
+      callback(callbackValue);
+    }
+  });
+}
+
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -32,6 +41,7 @@ export default class App extends Component {
       this.boardNumber = parseInt(lastBoardId) + 1
       this.setState({ boards: boards })
     }
+    listenForEnterKey("#board-name-input", this.createBoard);
   }
 
   createBoard = (name) => {
@@ -62,7 +72,7 @@ export default class App extends Component {
     } else {
       savedBoards = this.state.boards
     }
-    this.setState({ boards: this.state.boards.map((board)=> board.boardId === id ? result : board) })
+    this.setState({ boards: this.state.boards.map((board) => board.boardId === id ? result : board) })
     localStorage.setItem('boards', JSON.stringify(savedBoards))
   }
 
@@ -76,7 +86,7 @@ export default class App extends Component {
     let boards = this.state.boards
     const result = boards.find(board => board.boardId === id);
     result.lists = lists
-    this.setState({ boards: this.state.boards.map((board)=> board.boardId === id ? result : board) })
+    this.setState({ boards: this.state.boards.map((board) => board.boardId === id ? result : board) })
     this.setState({ currentBoard: null })
   }
 
@@ -96,7 +106,7 @@ export default class App extends Component {
     if (this.state.currentBoard) {
       let board = this.state.currentBoard
       return (
-        <Board closeBoard={this.closeBoard} saveBoard={this.saveBoard} boardInfo={board} />
+        <Board closeBoard={this.closeBoard} saveBoard={this.saveBoard} boardInfo={board} setCaretPosition={setCaretPosition} />
       )
     } else {
       let boards = this.state.boards.map((board) => {
@@ -110,18 +120,18 @@ export default class App extends Component {
           <div>
             <h3>Boards</h3>
             <div id='board-dropdown'>
-              {boards ? boards.map(board => board) : 'No boards'}
+              {boards.length > 0 ? boards.map(board => board) : 'No boards'}
             </div>
           </div>
           <div>
             <button onClick={() => this.switchBoardPopup(`block`)}>Create board</button>
           </div>
           <div id='board-pop-up' className='pop-ups'>
-          <button className='close-buttons' onClick={() => this.switchBoardPopup('none')}>X</button>
-          <br />
-          <input id='board-name-input' placeholder='Enter board name' />
-          <button onClick={() => this.createBoard(`${document.getElementById('board-name-input').value}`)}>Create board</button>
-        </div>
+            <button className='close-buttons' onClick={() => this.switchBoardPopup('none')}>X</button>
+            <br />
+            <input id='board-name-input' placeholder='Enter board name' />
+            <button onClick={() => this.createBoard(`${document.getElementById('board-name-input').value}`)}>Create board</button>
+          </div>
         </div>
       )
     }

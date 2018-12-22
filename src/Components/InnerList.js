@@ -28,48 +28,50 @@ const getListStyle = (isDraggingOver) => ({
 export default class InnerList extends Component {
 
   render() {
-      let list = this.props.list
-      let listId = list.id
-      let listName = list.listName
+    let list = this.props.list
+    let listId = list.id
+    let listName = list.listName
 
-      return (
-        <div key={listId}>
-          <button onClick={() => { this.props.popupSwitch('block', listName, listId) }}>Add to {listName}</button>
-          <h1>{listName}</h1>
-          <Droppable droppableId={listId}>
-            {(provided, snapshot) => (
-              <div
-                className='my-lists'
-                ref={provided.innerRef}
-                style={getListStyle(snapshot.isDraggingOver)}>
-                {list.items.map((item, index) => (
-                  <Fragment key={index}>
-                    {item ?
-                      <Draggable
-                        key={item.id}
-                        draggableId={item.id}
-                        index={index}>
-                        {(provided, snapshot) => (
-                          <div
-                            className='item-style'
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            style={getItemStyle(
-                              snapshot.isDragging,
-                              provided.draggableProps.style
-                            )}>
-                            {item.content}
-                          </div>
-                        )}
-                      </Draggable> : <div className='no-items'></div>}
-                  </Fragment>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </div>
-      );
+    return (
+      <div key={listId}>
+        <button onClick={() => { this.props.popupSwitch('block', listName, listId) }}>Add to {listName}</button>
+        <button className='close-buttons' onClick={() => { this.props.deleteList(listId) }}>X</button>
+        <h1>{listName}</h1>
+        <Droppable droppableId={listId}>
+          {(provided, snapshot) => (
+            <div
+              className='my-lists'
+              ref={provided.innerRef}
+              style={getListStyle(snapshot.isDraggingOver)}>
+              {list.items.map((item, index) => (
+                <Fragment key={index}>
+                  {item ?
+                    <Draggable
+                      key={item.id}
+                      draggableId={item.id}
+                      index={index}>
+                      {(provided, snapshot) => (
+                        <div
+                          className='item-style'
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={getItemStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}>
+                          <button className='close-buttons' onClick={() => { this.props.deleteItem(listId, item.id) }}>X</button>
+                          {item.content}
+                        </div>
+                      )}
+                    </Draggable> : <div className='no-items'></div>}
+                </Fragment>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </div>
+    );
   }
 }

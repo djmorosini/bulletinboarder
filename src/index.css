@@ -53,9 +53,7 @@ button {
 }
 
 .board-names {
-  background-color: lightgray;
-  padding: 5px;
-  border: 1px solid black;
+
   margin-bottom: 5px;
   width: fit-content;
   min-width: 200px;
@@ -63,6 +61,14 @@ button {
 
 .board-names:hover {
   background-color: lightgreen;
+}
+
+.board-names-wrap {
+  background-color: lightgray;
+  padding: 5px;
+  border: 1px solid black;
+  display: flex;
+  width: fit-content;
 }
 
 @media (max-width: 800px){

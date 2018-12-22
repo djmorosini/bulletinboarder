@@ -91,6 +91,12 @@ export default class Board extends Component {
     listenForEnterKey("#item-content-input", this.addToList);
   }
 
+  deleteList = (id) => {
+    let lists = this.state.lists
+    const result = lists.filter(list => list.id !== id)
+    this.setState({ lists: result })
+  }
+
   createNewList = (listName) => {
     let listId = 'droppable' + this.droppableNumber
     let items = []
@@ -102,6 +108,14 @@ export default class Board extends Component {
 
     this.switchListPopup('none')
     this.droppableNumber++
+  }
+
+  deleteItem = (listId, itemId) => {
+    let lists = this.state.lists
+    const result = lists.find(list => list.id === listId)
+    let updatedList = result.items.filter(item => item.id !== itemId)
+    result.items = updatedList
+    this.setState({ lists: lists.map(list => list.id === listId ? result : list) })
   }
 
   addToList = (listId, content) => {
@@ -241,7 +255,7 @@ export default class Board extends Component {
                             provided.draggableProps.style
                           )}
                         >
-                          <InnerList popupSwitch={this.switchItemPopup} list={list} />
+                          <InnerList deleteList={this.deleteList} deleteItem={this.deleteItem} popupSwitch={this.switchItemPopup} list={list} />
                         </div>
                       )}
                     </Draggable>

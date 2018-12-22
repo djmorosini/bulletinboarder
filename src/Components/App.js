@@ -35,13 +35,12 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem('boards')) {
+    if (JSON.parse(localStorage.getItem('boards')) && JSON.parse(localStorage.getItem('boards')).length > 0) {
       let boards = JSON.parse(localStorage.getItem('boards'))
       let lastBoardId = boards[boards.length - 1].boardId.slice(6)
       this.boardNumber = parseInt(lastBoardId) + 1
       this.setState({ boards: boards })
     }
-    listenForEnterKey("#board-name-input", this.createBoard);
   }
 
   createBoard = (name) => {
@@ -58,21 +57,19 @@ export default class App extends Component {
     const result = boards.find(board => board.boardId === id);
     result.lists = lists
 
-    console.log(result)
     let savedBoards
-    if (localStorage.getItem('boards')) {
+    if (JSON.parse(localStorage.getItem('boards')) && JSON.parse(localStorage.getItem('boards')).length > 0) {
       savedBoards = JSON.parse(localStorage.getItem('boards'))
       for (let board of savedBoards) {
         if (board.boardId === id) {
           board = result
-        } else {
-          savedBoards.push(result)
         }
       }
     } else {
-      savedBoards = this.state.boards
+      savedBoards = this.state.boards.map((board) => board.boardId === id ? result : board)
     }
-    this.setState({ boards: this.state.boards.map((board) => board.boardId === id ? result : board) })
+    
+    this.setState({ boards: savedBoards })
     localStorage.setItem('boards', JSON.stringify(savedBoards))
   }
 
@@ -90,6 +87,14 @@ export default class App extends Component {
     this.setState({ currentBoard: null })
   }
 
+  deleteBoard = (id) => {
+    let boards = this.state.boards
+    const result = boards.filter(board => board.boardId !== id)
+    console.log(result)
+    this.setState({ boards: result })
+    localStorage.setItem('boards', JSON.stringify(result))
+  }
+
   switchBoardPopup = (display) => {
     let boardPopup = document.getElementById('board-pop-up')
     let boardNameInput = document.getElementById('board-name-input')
@@ -97,6 +102,7 @@ export default class App extends Component {
       boardPopup.style = 'display: none;'
       boardNameInput.value = ''
     } else {
+      listenForEnterKey("#board-name-input", this.createBoard);
       boardPopup.style = 'display: block;'
       setCaretPosition('board-name-input', 0)
     }
@@ -111,7 +117,12 @@ export default class App extends Component {
     } else {
       let boards = this.state.boards.map((board) => {
         return (
-          <div key={board.boardId} className='board-names' onClick={() => this.loadBoard(`${board.boardId}`)}>{board.boardName}</div>
+          <div className='board-names-wrap' key={board.boardId}>
+            <div className='board-names' onClick={() => this.loadBoard(`${board.boardId}`)}>
+              {board.boardName}
+            </div>
+            <button className='close-buttons' onClick={() => { this.deleteBoard(board.boardId) }}>X</button>
+          </div>
         )
       })
       return (

@@ -35,7 +35,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    if (JSON.parse(localStorage.getItem('boards')) && JSON.parse(localStorage.getItem('boards')).length > 0) {
+    if (this.state.boards.length === 0 && JSON.parse(localStorage.getItem('boards')) && JSON.parse(localStorage.getItem('boards')).length > 0) {
       let boards = JSON.parse(localStorage.getItem('boards'))
       let lastBoardId = boards[boards.length - 1].boardId.slice(6)
       this.boardNumber = parseInt(lastBoardId) + 1
@@ -68,7 +68,7 @@ export default class App extends Component {
     } else {
       savedBoards = this.state.boards.map((board) => board.boardId === id ? result : board)
     }
-    
+
     this.setState({ boards: savedBoards })
     localStorage.setItem('boards', JSON.stringify(savedBoards))
   }
@@ -90,7 +90,6 @@ export default class App extends Component {
   deleteBoard = (id) => {
     let boards = this.state.boards
     const result = boards.filter(board => board.boardId !== id)
-    console.log(result)
     this.setState({ boards: result })
     localStorage.setItem('boards', JSON.stringify(result))
   }

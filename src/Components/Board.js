@@ -83,15 +83,16 @@ export default class Board extends Component {
   }
 
   componentDidMount() {
-    if (this.props.boardInfo.lists && this.props.boardInfo.lists.length !== 0) {
+    if (this.state.lists.length === 0 && this.props.boardInfo.lists && this.props.boardInfo.lists.length !== 0) {
       let lists = this.props.boardInfo.lists
-      this.setState({ lists: lists})
+      this.setState({ lists: lists })
     }
     listenForEnterKey("#list-name-input", this.createNewList);
     listenForEnterKey("#item-content-input", this.addToList);
   }
 
   deleteList = (id) => {
+    this.confirmDeletePopup('none')
     let lists = this.state.lists
     const result = lists.filter(list => list.id !== id)
     this.setState({ lists: result })
@@ -111,6 +112,7 @@ export default class Board extends Component {
   }
 
   deleteItem = (listId, itemId) => {
+    this.confirmDeletePopup('none', 'list', 'item')
     let lists = this.state.lists
     const result = lists.find(list => list.id === listId)
     let updatedList = result.items.filter(item => item.id !== itemId)
@@ -225,6 +227,32 @@ export default class Board extends Component {
     }
   }
 
+  confirmDeletePopup = (display, listId, itemId) => {
+    this.switchItemPopup('none')
+    this.switchListPopup('none')
+    if (itemId) {
+      let confirmPopup = document.getElementById('confirm-item-delete-popup')
+      if (display === 'none') {
+        confirmPopup.style = 'display: none;'
+      } else {
+        confirmPopup.style = 'display: block;'
+        let item = document.getElementById('item-id')
+        item.textContent = itemId
+        let itemList = document.getElementById('item-list-id')
+        itemList.textContent = listId
+      }
+    } else {
+      let confirmPopup = document.getElementById('confirm-list-delete-popup')
+      if (display === 'none') {
+        confirmPopup.style = 'display: none;'
+      } else {
+        confirmPopup.style = 'display: block;'
+        let list = document.getElementById('list-id')
+        list.textContent = listId
+      }
+    }
+  }
+
   render() {
     return (
       <div id='board-wrap'>
@@ -255,7 +283,7 @@ export default class Board extends Component {
                             provided.draggableProps.style
                           )}
                         >
-                          <InnerList deleteList={this.deleteList} deleteItem={this.deleteItem} popupSwitch={this.switchItemPopup} list={list} />
+                          <InnerList confirmDeletePopup={this.confirmDeletePopup} popupSwitch={this.switchItemPopup} list={list} />
                         </div>
                       )}
                     </Draggable>
@@ -279,6 +307,23 @@ export default class Board extends Component {
           <div style={{ display: 'none' }} id='list-id'></div>
           <input id='item-content-input' placeholder='Enter item content' />
           <button onClick={() => this.addToList(document.getElementById('list-id').textContent, `${document.getElementById('item-content-input').value}`)}>Create Item</button>
+        </div>
+        <div id='confirm-item-delete-popup' className='pop-ups'>
+          <button className='close-buttons' onClick={() => this.confirmDeletePopup('none', 'list', 'item')}>X</button>
+          <br />
+          <div style={{ display: 'none' }} id='item-id'></div>
+          <div style={{ display: 'none' }} id='item-list-id'></div>
+          <p>Delete item?</p>
+          <button onClick={() => this.deleteItem(`${document.getElementById('item-list-id').textContent}`, `${document.getElementById('item-id').textContent}`)} id='yes-button'>Yes</button>
+          <button onClick={() => this.confirmDeletePopup('none', 'list', 'item')}>No</button>
+        </div>
+        <div id='confirm-list-delete-popup' className='pop-ups'>
+          <button className='close-buttons' onClick={() => this.confirmDeletePopup('none')}>X</button>
+          <br />
+          <div style={{ display: 'none' }} id='list-id'></div>
+          <p>Delete list?</p>
+          <button onClick={() => this.deleteList(`${document.getElementById('list-id').textContent}`)} id='yes-button'>Yes</button>
+          <button onClick={() => this.confirmDeletePopup('none')}>No</button>
         </div>
       </div>
     );

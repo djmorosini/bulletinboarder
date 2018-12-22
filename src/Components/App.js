@@ -57,20 +57,20 @@ export default class App extends Component {
     const result = boards.find(board => board.boardId === id);
     result.lists = lists
 
-    let savedBoards
+    let newBoards = []
     if (JSON.parse(localStorage.getItem('boards')) && JSON.parse(localStorage.getItem('boards')).length > 0) {
-      savedBoards = JSON.parse(localStorage.getItem('boards'))
-      for (let board of savedBoards) {
+      let savedBoards = JSON.parse(localStorage.getItem('boards'))
+      savedBoards.forEach(board => {
         if (board.boardId === id) {
           board = result
         }
-      }
+        newBoards.push(board)
+      })
     } else {
-      savedBoards = this.state.boards.map((board) => board.boardId === id ? result : board)
+      newBoards = this.state.boards.map((board) => board.boardId === id ? result : board)
     }
-
-    this.setState({ boards: savedBoards })
-    localStorage.setItem('boards', JSON.stringify(savedBoards))
+    this.setState({ boards: newBoards })
+    localStorage.setItem('boards', JSON.stringify(newBoards))
   }
 
   loadBoard = (id) => {
@@ -88,6 +88,7 @@ export default class App extends Component {
   }
 
   deleteBoard = (id) => {
+    this.confirmBoardDeletePopup('none')
     let boards = this.state.boards
     const result = boards.filter(board => board.boardId !== id)
     this.setState({ boards: result })
@@ -107,6 +108,18 @@ export default class App extends Component {
     }
   }
 
+  confirmBoardDeletePopup = (display, id) => {
+    this.switchBoardPopup('none')
+    let confirmPopup = document.getElementById('confirm-board-delete-popup')
+    if (display === 'none') {
+      confirmPopup.style = 'display: none;'
+    } else {
+      confirmPopup.style = 'display: block;'
+      let boardId = document.getElementById('board-id')
+      boardId.textContent = id
+    }
+  }
+
   render() {
     if (this.state.currentBoard) {
       let board = this.state.currentBoard
@@ -120,7 +133,7 @@ export default class App extends Component {
             <div className='board-names' onClick={() => this.loadBoard(`${board.boardId}`)}>
               {board.boardName}
             </div>
-            <button className='close-buttons' onClick={() => { this.deleteBoard(board.boardId) }}>X</button>
+            <button className='close-buttons' onClick={() => { this.confirmBoardDeletePopup('block', board.boardId) }}>X</button>
           </div>
         )
       })
@@ -141,6 +154,14 @@ export default class App extends Component {
             <br />
             <input id='board-name-input' placeholder='Enter board name' />
             <button onClick={() => this.createBoard(`${document.getElementById('board-name-input').value}`)}>Create board</button>
+          </div>
+          <div id='confirm-board-delete-popup' className='pop-ups'>
+            <button className='close-buttons' onClick={() => this.confirmBoardDeletePopup('none')}>X</button>
+            <br />
+            <div style={{ display: 'none' }} id='board-id'></div>
+            <p>Delete board?</p>
+            <button onClick={() => this.deleteBoard(`${document.getElementById('board-id').textContent}`)} id='yes-button'>Yes</button>
+            <button onClick={() => this.confirmBoardDeletePopup('none')}>No</button>
           </div>
         </div>
       )

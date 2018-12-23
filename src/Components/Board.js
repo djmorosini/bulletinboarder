@@ -217,8 +217,6 @@ export default class Board extends Component {
   }
 
   confirmDeletePopup = (display, listId, itemId) => {
-    this.switchItemPopup('none')
-    this.switchListPopup('none')
     if (itemId) {
       let confirmPopup = document.getElementById('confirm-item-delete-popup')
       if (display === 'none') {

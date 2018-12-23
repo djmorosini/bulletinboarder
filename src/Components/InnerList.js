@@ -35,7 +35,7 @@ export default class InnerList extends Component {
     return (
       <div key={listId}>
         <button onClick={() => { this.props.popupSwitch('block', listName, listId) }}>Add to {listName}</button>
-        <button className='close-buttons' onClick={() => { this.props.confirmDeletePopup('block', listId) }}>X</button>
+        <i onClick={() => this.props.confirmDeletePopup('block', listId)} className="far fa-times-circle"></i>
         <h1>{listName}</h1>
         <Droppable droppableId={listId}>
           {(provided, snapshot) => (
@@ -60,7 +60,7 @@ export default class InnerList extends Component {
                             snapshot.isDragging,
                             provided.draggableProps.style
                           )}>
-                          <button className='close-buttons' onClick={() => { this.props.confirmDeletePopup('block', listId, item.id) }}>X</button>
+                          <i onClick={() => this.props.confirmDeletePopup('block', listId, item.id)} className="far fa-times-circle"></i>
                           {item.content}
                         </div>
                       )}

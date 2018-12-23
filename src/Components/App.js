@@ -177,7 +177,7 @@ export default class App extends Component {
             <div className='board-names' onClick={() => this.loadBoard(`${board.boardId}`)}>
               {board.boardName}
             </div>
-            <button className='close-buttons' onClick={() => { this.confirmBoardDeletePopup('block', board.boardId) }}>X</button>
+            <i onClick={() => this.confirmBoardDeletePopup('block', board.boardId)} className="far fa-times-circle"></i>
           </div>
         )
       })
@@ -194,13 +194,13 @@ export default class App extends Component {
             <button onClick={() => this.switchBoardPopup(`block`)}>Create board</button>
           </div>
           <div id='board-pop-up' className='pop-ups'>
-            <button className='close-buttons' onClick={() => this.switchBoardPopup('none')}>X</button>
+            <i onClick={() => this.switchBoardPopup('none')} className="far fa-times-circle"></i>
             <br />
             <input id='board-name-input' placeholder='Enter board name' />
             <button onClick={() => this.createBoard(`${document.getElementById('board-name-input').value}`)}>Create board</button>
           </div>
           <div id='confirm-board-delete-popup' className='pop-ups'>
-            <button className='close-buttons' onClick={() => this.confirmBoardDeletePopup('none')}>X</button>
+            <i onClick={() => this.confirmBoardDeletePopup('none')} className="far fa-times-circle"></i>
             <br />
             <div style={{ display: 'none' }} id='board-id'></div>
             <p>Delete board?</p>

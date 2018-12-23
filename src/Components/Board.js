@@ -299,13 +299,13 @@ export default class Board extends Component {
           </Droppable>
         </DragDropContext>
         <div id='list-pop-up' className='pop-ups'>
-          <button className='close-buttons' onClick={() => this.switchListPopup('none')}>X</button>
+          <i onClick={() => this.switchListPopup('none')} className="far fa-times-circle"></i>
           <br />
           <input id='list-name-input' placeholder='Enter list name' />
           <button onClick={() => this.createNewList(`${document.getElementById('list-name-input').value}`)}>Create List</button>
         </div>
         <div id='item-pop-up' className='pop-ups'>
-          <button className='close-buttons' onClick={() => this.switchItemPopup('none')}>X</button>
+          <i onClick={() => this.switchItemPopup('none')} className="far fa-times-circle"></i>
           <br />
           <div>Add item to <span id='item-popup-title'></span></div>
           <div style={{ display: 'none' }} id='list-id'></div>
@@ -313,7 +313,7 @@ export default class Board extends Component {
           <button onClick={() => this.addToList(document.getElementById('list-id').textContent, `${document.getElementById('item-content-input').value}`)}>Create Item</button>
         </div>
         <div id='confirm-item-delete-popup' className='pop-ups'>
-          <button className='close-buttons' onClick={() => this.confirmDeletePopup('none', 'list', 'item')}>X</button>
+          <i onClick={() => this.confirmDeletePopup('none', 'list', 'item')} className="far fa-times-circle"></i>
           <br />
           <div style={{ display: 'none' }} id='item-id'></div>
           <div style={{ display: 'none' }} id='item-list-id'></div>
@@ -322,7 +322,7 @@ export default class Board extends Component {
           <button onClick={() => this.confirmDeletePopup('none', 'list', 'item')}>No</button>
         </div>
         <div id='confirm-list-delete-popup' className='pop-ups'>
-          <button className='close-buttons' onClick={() => this.confirmDeletePopup('none')}>X</button>
+          <i onClick={() => this.confirmDeletePopup('none')} className="far fa-times-circle"></i>
           <br />
           <div style={{ display: 'none' }} id='list-id'></div>
           <p>Delete list?</p>

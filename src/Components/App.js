@@ -150,6 +150,7 @@ export default class App extends Component {
       boardPopup.style = 'display: none;'
       boardNameInput.value = ''
     } else {
+      this.confirmBoardDeletePopup('none')
       listenForEnterKey("#board-name-input", this.createBoard);
       boardPopup.style = 'display: block;'
       setCaretPosition('board-name-input', 0)
@@ -157,11 +158,11 @@ export default class App extends Component {
   }
 
   confirmBoardDeletePopup = (display, id) => {
-    this.switchBoardPopup('none')
     let confirmPopup = document.getElementById('confirm-board-delete-popup')
     if (display === 'none') {
       confirmPopup.style = 'display: none;'
     } else {
+      this.switchBoardPopup('none')
       confirmPopup.style = 'display: block;'
       let boardId = document.getElementById('board-id')
       boardId.textContent = id

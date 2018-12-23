@@ -1,6 +1,48 @@
 import React, { Component } from 'react';
 import Board from './Board'
 
+const dragElement = (elementId) => {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+  const closeDragElement = () => {
+    // stop moving when mouse button is released:
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+
+  const elementDrag = (e) => {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    document.getElementById(elementId).style.top = (document.getElementById(elementId).offsetTop - pos2) + "px";
+    document.getElementById(elementId).style.left = (document.getElementById(elementId).offsetLeft - pos1) + "px";
+  }
+
+  const dragMouseDown = (e) => {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a const whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  if (document.getElementById(elementId)) {
+    // if present, the header is where you move the DIV from:
+    document.getElementById(elementId).onmousedown = dragMouseDown;
+  } else {
+    // otherwise, move the DIV from anywhere inside the DIV: 
+    document.getElementById(elementId).onmousedown = dragMouseDown;
+  }
+}
+
 const setCaretPosition = (elemId, caretPos) => {
   let elem = document.getElementById(elemId);
   if (elem.createTextRange) {
@@ -35,6 +77,8 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    dragElement('board-pop-up')
+    dragElement('confirm-board-delete-popup')
     if (this.state.boards.length === 0 && JSON.parse(localStorage.getItem('boards')) && JSON.parse(localStorage.getItem('boards')).length > 0) {
       let boards = JSON.parse(localStorage.getItem('boards'))
       let lastBoardId = boards[boards.length - 1].boardId.slice(6)
@@ -124,7 +168,7 @@ export default class App extends Component {
     if (this.state.currentBoard) {
       let board = this.state.currentBoard
       return (
-        <Board closeBoard={this.closeBoard} saveBoard={this.saveBoard} boardInfo={board} setCaretPosition={setCaretPosition} />
+        <Board dragElement={dragElement} closeBoard={this.closeBoard} saveBoard={this.saveBoard} boardInfo={board} setCaretPosition={setCaretPosition} />
       )
     } else {
       let boards = this.state.boards.map((board) => {

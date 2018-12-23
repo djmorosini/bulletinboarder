@@ -83,6 +83,10 @@ export default class Board extends Component {
   }
 
   componentDidMount() {
+    this.props.dragElement('list-pop-up')
+    this.props.dragElement('item-pop-up')
+    this.props.dragElement('confirm-item-delete-popup')
+    this.props.dragElement('confirm-list-delete-popup')
     if (this.state.lists.length === 0 && this.props.boardInfo.lists && this.props.boardInfo.lists.length !== 0) {
       let lists = this.props.boardInfo.lists
       this.setState({ lists: lists })

@@ -110,9 +110,13 @@ export default class App extends Component {
         }
         newBoards.push(board)
       })
+      if (savedBoards.filter(board => board.boardId === id).length === 0) {
+        newBoards.push(result)
+      }
     } else {
       newBoards = this.state.boards.map((board) => board.boardId === id ? result : board)
     }
+
     this.setState({ boards: newBoards })
     localStorage.setItem('boards', JSON.stringify(newBoards))
   }

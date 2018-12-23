@@ -80,6 +80,10 @@ button {
   overflow: hidden;
 }
 
+#list-name-input {
+  margin: 5px;
+}
+
 @media (max-width: 800px){
 }
 

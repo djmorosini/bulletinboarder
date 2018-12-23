@@ -89,6 +89,7 @@ export default class Board extends Component {
       let lists = this.props.boardInfo.lists
       this.setState({ lists: lists })
     }
+    this.props.setCaretPosition('list-name-input', 0)
     listenForEnterKey("#list-name-input", this.createNewList);
   }
 

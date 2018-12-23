@@ -78,13 +78,11 @@ export default class Board extends Component {
     this.itemIndex = 0
     this.droppableNumber = 0
     this.state = {
-      lists: []
-    };
+    lists: [{ listName: 'Add list', id: 'addList', items: [] }]
+  };
   }
 
   componentDidMount() {
-    this.props.dragElement('list-pop-up')
-    this.props.dragElement('item-pop-up')
     this.props.dragElement('confirm-item-delete-popup')
     this.props.dragElement('confirm-list-delete-popup')
     if (this.state.lists.length === 0 && this.props.boardInfo.lists && this.props.boardInfo.lists.length !== 0) {
@@ -92,7 +90,6 @@ export default class Board extends Component {
       this.setState({ lists: lists })
     }
     listenForEnterKey("#list-name-input", this.createNewList);
-    listenForEnterKey("#item-content-input", this.addToList);
   }
 
   deleteList = (id) => {
@@ -104,14 +101,26 @@ export default class Board extends Component {
 
   createNewList = (listName) => {
     let listId = 'droppable' + this.droppableNumber
-    let items = []
+    let items = [{ id: `addItem`, content: 'Add item' }]
     let listArray = this.state.lists
     let newList = { listName: listName, id: listId, items: items }
     listArray.push(newList)
+    let newListArray = []
+    let tempArray = []
+    listArray.forEach((list, index) => {
+      if (list.id === 'addList') {
+        tempArray.push(list)
+      } else {
+        newListArray.push(list)
+      }
+    })
+    newListArray.push(tempArray[0])
 
-    this.setState({ lists: listArray })
+    this.setState({ lists: newListArray })
 
-    this.switchListPopup('none')
+    document.getElementById('list-name-input').value = ''
+    this.props.setCaretPosition('item-content-input', 0)
+    listenForEnterKey("#item-content-input", this.addToList);
     this.droppableNumber++
   }
 
@@ -127,13 +136,19 @@ export default class Board extends Component {
   addToList = (listId, content) => {
     let lists = this.state.lists
     const result = lists.find(list => list.id === listId);
+    let tempArray = []
     let items = result.items
+    tempArray.push(items.pop())
     items.push({ id: `item-${this.itemIndex}`, content: content })
+    items.push(tempArray[0])
+
     this.itemIndex++
     this.setState({ lists: lists.map(list => list.id === listId ? list = { ...list, items: items } : list) })
 
     let itemPopupInput = document.getElementById('item-content-input')
     itemPopupInput.value = ''
+    listenForEnterKey("#item-content-input", this.addToList);
+    this.props.setCaretPosition('item-content-input', 0)
   }
 
   getList = (id) => {
@@ -201,36 +216,6 @@ export default class Board extends Component {
     }
   }
 
-  switchListPopup = (display) => {
-    let listPopup = document.getElementById('list-pop-up')
-    let listNameInput = document.getElementById('list-name-input')
-    if (display === 'none') {
-      listPopup.style = 'display: none;'
-      listNameInput.value = ''
-    } else {
-      this.switchItemPopup('none')
-      listPopup.style = 'display: block;'
-      this.props.setCaretPosition('list-name-input', 0)
-    }
-  }
-
-  switchItemPopup = (display, listName, listId) => {
-    let itemPopup = document.getElementById('item-pop-up')
-    let itemPopupInput = document.getElementById('item-content-input')
-    if (display === 'none') {
-      itemPopup.style = 'display: none;'
-      itemPopupInput.value = ''
-    } else {
-      this.switchListPopup('none')
-      let popupTitle = document.getElementById('item-popup-title')
-      popupTitle.textContent = listName
-      let idDiv = document.getElementById('list-id')
-      idDiv.textContent = listId
-      itemPopup.style = 'display: block;'
-      this.props.setCaretPosition('item-content-input', 0)
-    }
-  }
-
   confirmDeletePopup = (display, listId, itemId) => {
     this.switchItemPopup('none')
     this.switchListPopup('none')
@@ -258,9 +243,30 @@ export default class Board extends Component {
   }
 
   render() {
+
+    const lists = this.state.lists.map((list, index) => (
+      <div className='list-wrap' key={list.id}>
+        <Draggable draggableId={list.id} index={index}>
+          {(provided, snapshot) => (
+            <div
+              className='list-style'
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              style={getItemStyle(
+                snapshot.isDragging,
+                provided.draggableProps.style
+              )}
+            >
+              <InnerList confirmDeletePopup={this.confirmDeletePopup} popupSwitch={this.switchItemPopup} list={list} />
+            </div>
+          )}
+        </Draggable>
+      </div>
+    ))
+
     return (
       <div id='board-wrap'>
-        <button onClick={() => { this.switchListPopup('block') }}>Add list</button>
         <button onClick={() => this.props.closeBoard(`${this.props.boardInfo.boardId}`, this.state.lists)} >Close board</button>
         <button onClick={() => this.props.saveBoard(`${this.props.boardInfo.boardId}`, this.state.lists)} >Save board</button>
         <div id='board-title'>{this.props.boardInfo.boardName}</div>
@@ -273,45 +279,12 @@ export default class Board extends Component {
                 style={getListStyle(snapshot.isDraggingOver)}
                 {...provided.droppableProps}
               >
-                {this.state.lists.map((list, index) => (
-                  <div className='list-wrap' key={list.id}>
-                    <Draggable draggableId={list.id} index={index}>
-                      {(provided, snapshot) => (
-                        <div
-                          className='list-style'
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          <InnerList confirmDeletePopup={this.confirmDeletePopup} popupSwitch={this.switchItemPopup} list={list} />
-                        </div>
-                      )}
-                    </Draggable>
-                  </div>
-                ))}
+                {lists}
                 {provided.placeholder}
               </div>
             )}
           </Droppable>
         </DragDropContext>
-        <div id='list-pop-up' className='pop-ups'>
-          <i onClick={() => this.switchListPopup('none')} className="far fa-times-circle"></i>
-          <br />
-          <input id='list-name-input' placeholder='Enter list name' />
-          <button onClick={() => this.createNewList(`${document.getElementById('list-name-input').value}`)}>Create List</button>
-        </div>
-        <div id='item-pop-up' className='pop-ups'>
-          <i onClick={() => this.switchItemPopup('none')} className="far fa-times-circle"></i>
-          <br />
-          <div id='add-item-container'>Add item to <span id='item-popup-title'></span></div>
-          <div style={{ display: 'none' }} id='list-id'></div>
-          <input id='item-content-input' placeholder='Enter item content' />
-          <button onClick={() => this.addToList(document.getElementById('list-id').textContent, `${document.getElementById('item-content-input').value}`)}>Create Item</button>
-        </div>
         <div id='confirm-item-delete-popup' className='pop-ups'>
           <i onClick={() => this.confirmDeletePopup('none', 'list', 'item')} className="far fa-times-circle"></i>
           <br />
@@ -324,7 +297,6 @@ export default class Board extends Component {
         <div id='confirm-list-delete-popup' className='pop-ups'>
           <i onClick={() => this.confirmDeletePopup('none')} className="far fa-times-circle"></i>
           <br />
-          <div style={{ display: 'none' }} id='list-id'></div>
           <p>Delete list?</p>
           <button onClick={() => this.deleteList(`${document.getElementById('list-id').textContent}`)} id='yes-button'>Yes</button>
           <button onClick={() => this.confirmDeletePopup('none')}>No</button>

@@ -34,9 +34,8 @@ export default class InnerList extends Component {
 
     return (
       <div key={listId}>
-        <button className='add-to-list-button' onClick={() => { this.props.popupSwitch('block', listName, listId) }}>Add item</button>
         <i onClick={() => this.props.confirmDeletePopup('block', listId)} className="far fa-times-circle"></i>
-        <h1 className='list-title-style'>{listName}</h1>
+        {listId === 'addList' ? <input autoComplete="off" id='list-name-input' placeholder='Enter list name' /> : <h1 className='list-title-style'>{listName}</h1> }
         <Droppable droppableId={listId}>
           {(provided, snapshot) => (
             <div
@@ -61,7 +60,8 @@ export default class InnerList extends Component {
                             provided.draggableProps.style
                           )}>
                           <i onClick={() => this.props.confirmDeletePopup('block', listId, item.id)} className="far fa-times-circle"></i>
-                          {item.content}
+                          <div style={{ display: 'none' }} id='list-id'>{listId}</div>
+                          {item.id === 'addItem' ? <input id='item-content-input' placeholder='Enter item content' /> : item.content}
                         </div>
                       )}
                     </Draggable> : <div className='no-items'></div>}

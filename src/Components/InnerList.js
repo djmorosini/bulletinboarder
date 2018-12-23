@@ -34,9 +34,9 @@ export default class InnerList extends Component {
 
     return (
       <div key={listId}>
-        <button onClick={() => { this.props.popupSwitch('block', listName, listId) }}>Add to {listName}</button>
+        <button className='add-to-list-button' onClick={() => { this.props.popupSwitch('block', listName, listId) }}>Add item</button>
         <i onClick={() => this.props.confirmDeletePopup('block', listId)} className="far fa-times-circle"></i>
-        <h1>{listName}</h1>
+        <h1 className='list-title-style'>{listName}</h1>
         <Droppable droppableId={listId}>
           {(provided, snapshot) => (
             <div

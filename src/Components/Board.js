@@ -263,7 +263,7 @@ export default class Board extends Component {
         <button onClick={() => { this.switchListPopup('block') }}>Add list</button>
         <button onClick={() => this.props.closeBoard(`${this.props.boardInfo.boardId}`, this.state.lists)} >Close board</button>
         <button onClick={() => this.props.saveBoard(`${this.props.boardInfo.boardId}`, this.state.lists)} >Save board</button>
-        <span>{this.props.boardInfo.boardName}</span>
+        <div id='board-title'>{this.props.boardInfo.boardName}</div>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" direction="horizontal" type='COLUMN'>
             {(provided, snapshot) => (
@@ -307,7 +307,7 @@ export default class Board extends Component {
         <div id='item-pop-up' className='pop-ups'>
           <i onClick={() => this.switchItemPopup('none')} className="far fa-times-circle"></i>
           <br />
-          <div>Add item to <span id='item-popup-title'></span></div>
+          <div id='add-item-container'>Add item to <span id='item-popup-title'></span></div>
           <div style={{ display: 'none' }} id='list-id'></div>
           <input id='item-content-input' placeholder='Enter item content' />
           <button onClick={() => this.addToList(document.getElementById('list-id').textContent, `${document.getElementById('item-content-input').value}`)}>Create Item</button>

@@ -42,10 +42,11 @@ button {
 }
 
 .board-names {
-
+  overflow: hidden;
   margin-bottom: 5px;
-  width: fit-content;
+  width: 300px;
   min-width: 200px;
+  overflow: hidden;
 }
 
 .board-names:hover {
@@ -58,6 +59,25 @@ button {
   border: 1px solid black;
   display: flex;
   width: fit-content;
+}
+
+.list-title-style {
+  overflow: hidden;
+}
+
+.item-style {
+  overflow: hidden;
+}
+
+#add-item-container {
+  width: 300px;
+  overflow: hidden;
+}
+
+#board-title {
+  display: inline-block;
+  width: 400px;
+  overflow: hidden;
 }
 
 @media (max-width: 800px){

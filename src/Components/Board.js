@@ -78,8 +78,8 @@ export default class Board extends Component {
     this.itemIndex = 0
     this.droppableNumber = 0
     this.state = {
-    lists: [{ listName: 'Add list', id: 'addList', items: [] }]
-  };
+      lists: [{ listName: 'Add list', id: 'addList', items: [] }]
+    };
   }
 
   componentDidMount() {
@@ -88,6 +88,10 @@ export default class Board extends Component {
     if (this.state.lists.length === 1 && this.props.boardInfo.lists && this.props.boardInfo.lists.length !== 0) {
       let lists = this.props.boardInfo.lists
       this.setState({ lists: lists })
+      if (lists.length > 1) {
+        let lastListId = lists[lists.length - 2].id.slice(9)
+        this.droppableNumber = parseInt(lastListId) + 1
+      }
     }
     this.props.setCaretPosition('list-name-input', 0)
     listenForEnterKey("#list-name-input", this.createNewList);

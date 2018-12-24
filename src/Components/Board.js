@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import InnerList from './InnerList'
 
 const listenForEnterKey = (selector, callback, listId) => {
-  document.querySelector(selector).addEventListener('keypress', function (e) {
+  document.querySelector(selector).addEventListener('keypress', function enterFunction(e) {
     if (e.key === 'Enter') {
       let callbackValue = document.querySelector(selector).value
       if (selector === '#list-name-input') {
@@ -96,18 +96,6 @@ export default class Board extends Component {
     listenForEnterKey("#list-name-input", this.createNewList);
   }
 
-  componentDidUpdate() {
-    let itemElements = document.getElementsByClassName('item-content-input')
-    let testDivs = Array.prototype.filter.call(itemElements, function (itemElement) {
-      return itemElement.nodeName === 'INPUT';
-    });
-    for (let item of testDivs) {
-      let listId = item.id.split('-')[0]
-      item.removeEventListener('keypress', this.addToList)
-      listenForEnterKey(`#${item.id}`, this.addToList, listId)
-    }
-  }
-
   deleteList = (id) => {
     this.confirmDeletePopup('none')
     let lists = this.state.lists
@@ -135,7 +123,6 @@ export default class Board extends Component {
     this.setState({ lists: newListArray })
 
     document.getElementById('list-name-input').value = ''
-    this.props.setCaretPosition(`#${listId}-input`, 0)
     this.droppableNumber++
   }
 
@@ -268,7 +255,7 @@ export default class Board extends Component {
                 provided.draggableProps.style
               )}
             >
-              <InnerList confirmDeletePopup={this.confirmDeletePopup} popupSwitch={this.switchItemPopup} list={list} />
+              <InnerList addToList={this.addToList} confirmDeletePopup={this.confirmDeletePopup} popupSwitch={this.switchItemPopup} list={list} />
             </div>
           )}
         </Draggable>

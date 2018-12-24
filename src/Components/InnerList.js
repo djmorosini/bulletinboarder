@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import Item from './Item'
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
@@ -62,7 +63,7 @@ export default class InnerList extends Component {
                           )}>
                           <i onClick={() => this.props.confirmDeletePopup('block', listId, item.id)} className="far fa-times-circle"></i>
                           <div style={{ display: 'none' }} id={`list-id-${listId}`}>{listId}</div>
-                          {item.id === 'addItem' ? <input id={`${listId}-input`} className='item-content-input' placeholder='Enter item content' /> : item.content}
+                          <Item addToList={this.props.addToList} listId={listId} itemId={item.id} content={item.content} />
                         </div>
                       )}
                     </Draggable> : <div className='no-items'></div>}

@@ -44,7 +44,7 @@ const dragElement = (elementId) => {
 }
 
 const setCaretPosition = (elemId, caretPos) => {
-  let elem = document.getElementById(elemId);
+  let elem = document.querySelector(elemId);
   if (elem.createTextRange) {
     let range = elem.createTextRange();
     range.move('character', caretPos);
@@ -153,7 +153,7 @@ export default class App extends Component {
       this.confirmBoardDeletePopup('none')
       listenForEnterKey("#board-name-input", this.createBoard);
       boardPopup.style = 'display: block;'
-      setCaretPosition('board-name-input', 0)
+      setCaretPosition('#board-name-input', 0)
     }
   }
 

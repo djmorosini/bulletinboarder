@@ -35,7 +35,7 @@ export default class InnerList extends Component {
     return (
       <div key={listId}>
         <i onClick={() => this.props.confirmDeletePopup('block', listId)} className="far fa-times-circle"></i>
-        {listId === 'addList' ? <input autoComplete="off" id='list-name-input' placeholder='Enter list name' /> : <h1 className='list-title-style'>{listName}</h1> }
+        {listId === 'addList' ? <input autoComplete="off" id='list-name-input' placeholder='Enter list name' /> : <h1 className='list-title-style'>{listName}</h1>}
         <Droppable droppableId={listId}>
           {(provided, snapshot) => (
             <div
@@ -46,6 +46,7 @@ export default class InnerList extends Component {
                 <Fragment key={index}>
                   {item ?
                     <Draggable
+                      isDragDisabled={item.id === "addItem" ? true : false}
                       key={item.id}
                       draggableId={item.id}
                       index={index}>
@@ -60,8 +61,8 @@ export default class InnerList extends Component {
                             provided.draggableProps.style
                           )}>
                           <i onClick={() => this.props.confirmDeletePopup('block', listId, item.id)} className="far fa-times-circle"></i>
-                          <div style={{ display: 'none' }} id='list-id'>{listId}</div>
-                          {item.id === 'addItem' ? <input id='item-content-input' placeholder='Enter item content' /> : item.content}
+                          <div style={{ display: 'none' }} id={`list-id-${listId}`}>{listId}</div>
+                          {item.id === 'addItem' ? <input id={`${listId}-input`} className='item-content-input' placeholder='Enter item content' /> : item.content}
                         </div>
                       )}
                     </Draggable> : <div className='no-items'></div>}

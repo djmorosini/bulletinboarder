@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import InnerList from './InnerList'
 
-const listenForEnterKey = (selector, callback) => {
+const listenForEnterKey = (selector, callback, listId) => {
   document.querySelector(selector).addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
       let callbackValue = document.querySelector(selector).value
       if (selector === '#list-name-input') {
         callback(callbackValue);
       } else {
-        let listId = document.querySelector('#list-id').textContent
         callback(listId, callbackValue);
       }
     }
@@ -85,7 +84,7 @@ export default class Board extends Component {
   componentDidMount() {
     this.props.dragElement('confirm-item-delete-popup')
     this.props.dragElement('confirm-list-delete-popup')
-    if (this.state.lists.length === 1 && this.props.boardInfo.lists && this.props.boardInfo.lists.length !== 0) {
+    if (this.props.boardInfo.lists && this.props.boardInfo.lists.length !== 0) {
       let lists = this.props.boardInfo.lists
       this.setState({ lists: lists })
       if (lists.length > 1) {
@@ -93,8 +92,20 @@ export default class Board extends Component {
         this.droppableNumber = parseInt(lastListId) + 1
       }
     }
-    this.props.setCaretPosition('list-name-input', 0)
+    this.props.setCaretPosition('#list-name-input', 0)
     listenForEnterKey("#list-name-input", this.createNewList);
+  }
+
+  componentDidUpdate() {
+    let itemElements = document.getElementsByClassName('item-content-input')
+    let testDivs = Array.prototype.filter.call(itemElements, function (itemElement) {
+      return itemElement.nodeName === 'INPUT';
+    });
+    for (let item of testDivs) {
+      let listId = item.id.split('-')[0]
+      item.removeEventListener('keypress', this.addToList)
+      listenForEnterKey(`#${item.id}`, this.addToList, listId)
+    }
   }
 
   deleteList = (id) => {
@@ -124,8 +135,7 @@ export default class Board extends Component {
     this.setState({ lists: newListArray })
 
     document.getElementById('list-name-input').value = ''
-    this.props.setCaretPosition('item-content-input', 0)
-    listenForEnterKey("#item-content-input", this.addToList);
+    this.props.setCaretPosition(`#${listId}-input`, 0)
     this.droppableNumber++
   }
 
@@ -150,10 +160,7 @@ export default class Board extends Component {
     this.itemIndex++
     this.setState({ lists: lists.map(list => list.id === listId ? list = { ...list, items: items } : list) })
 
-    let itemPopupInput = document.getElementById('item-content-input')
-    itemPopupInput.value = ''
-    listenForEnterKey("#item-content-input", this.addToList);
-    this.props.setCaretPosition('item-content-input', 0)
+    this.props.setCaretPosition(`#${listId}-input`, 0)
   }
 
   getList = (id) => {
@@ -239,7 +246,7 @@ export default class Board extends Component {
         confirmPopup.style = 'display: none;'
       } else {
         confirmPopup.style = 'display: block;'
-        let list = document.getElementById('list-id')
+        let list = document.getElementById('list-id-' + listId)
         list.textContent = listId
       }
     }

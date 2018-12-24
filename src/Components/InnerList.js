@@ -48,8 +48,8 @@ export default class InnerList extends Component {
                   {item ?
                     <Draggable
                       isDragDisabled={item.id === "addItem" ? true : false}
-                      key={item.id}
-                      draggableId={item.id}
+                      key={item.id === 'addItem' ? item.id + '-' + listId : item.id}
+                      draggableId={item.id === 'addItem' ? item.id + '-' + listId : item.id}
                       index={index}>
                       {(provided, snapshot) => (
                         <div

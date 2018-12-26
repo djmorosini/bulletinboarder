@@ -88,8 +88,43 @@ export default class Board extends Component {
       let lists = this.props.boardInfo.lists
       this.setState({ lists: lists })
       if (lists.length > 1) {
-        let lastListId = lists[lists.length - 2].id.slice(9)
+        let sortedlists = lists.slice().sort((a, b) => {
+          var nameA = a.id.toUpperCase(); // ignore upper and lowercase
+          var nameB = b.id.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+        
+          // names must be equal
+          return 0;
+        });
+        let lastListId = sortedlists[sortedlists.length - 1].id.slice(9)
         this.droppableNumber = parseInt(lastListId) + 1
+
+        let listItems = []
+        for (let list of lists) {
+          for (let item of list.items) {
+            listItems.push(item)
+          }
+        }
+        let items = listItems.sort((a, b) => {
+          var nameA = a.id.toUpperCase(); // ignore upper and lowercase
+          var nameB = b.id.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+        
+          // names must be equal
+          return 0;
+        });
+        let lastItemId = items[items.length - 1].id.slice(5)
+        this.itemIndex = parseInt(lastItemId) + 1
       }
     }
     this.props.setCaretPosition('#list-name-input', 0)

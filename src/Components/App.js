@@ -116,6 +116,7 @@ export default class App extends Component {
     } else {
       newBoards = this.state.boards.map((board) => board.boardId === id ? result : board)
     }
+    console.log(newBoards)
 
     this.setState({ boards: newBoards })
     localStorage.setItem('boards', JSON.stringify(newBoards))

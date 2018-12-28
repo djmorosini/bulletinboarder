@@ -88,17 +88,9 @@ export default class Board extends Component {
       this.setState({ lists: lists })
       if (lists.length > 0) {
         let sortedlists = lists.slice().sort((a, b) => {
-          var nameA = a.id.toUpperCase(); // ignore upper and lowercase
-          var nameB = b.id.toUpperCase(); // ignore upper and lowercase
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
-
-          // names must be equal
-          return 0;
+          let firstId = a.id.slice(9)
+          let secondId = b.id.slice(9)
+          return firstId - secondId
         });
         let lastListId = sortedlists[sortedlists.length - 1].id.slice(9)
         this.droppableNumber = parseInt(lastListId) + 1
@@ -110,9 +102,9 @@ export default class Board extends Component {
           }
         }
         listItems.sort((a, b) => {
-          var aID = a.id.slice(5)
-          var bID = b.id.slice(5)
-          return aID - bID
+          let firstId = a.id.slice(5)
+          let secondId = b.id.slice(5)
+          return firstId - secondId
         });
         if (listItems[listItems.length - 1] && listItems[listItems.length - 1].id !== 'addItem') {
           let lastItemId = listItems[listItems.length - 1].id.slice(5)

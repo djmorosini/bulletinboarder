@@ -177,11 +177,10 @@ export default class Board extends Component {
   addToList = (listId, content) => {
     let lists = this.state.lists
     const result = lists.find(list => list.id === listId);
-    let tempArray = []
     let items = result.items
-    tempArray.push(items.pop())
+    items = items.filter(item => item.id !== 'addItem')
     items.push({ id: `item-${this.itemIndex}`, content: content })
-    items.push(tempArray[0])
+    items.push({ id: `addItem`, content: 'Add item' })
 
     this.itemIndex++
     this.setState({ lists: lists.map(list => list.id === listId ? list = { ...list, items: items } : list) })

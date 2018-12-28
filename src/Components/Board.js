@@ -48,7 +48,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
   padding: '5px',
   margin: `0 8px 0 0`,
-  minHeight: '20%',
+  minHeight: '20vh',
   width: '280px',
   border: '1px solid black',
 
@@ -62,7 +62,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? 'lightblue' : 'white',
   display: 'flex',
-  padding: '20px 8px 8px 8px',
+  padding: '8px',
   flexWrap: 'no-wrap',
   width: 'fit-content',
   height: 'fit-content',

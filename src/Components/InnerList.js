@@ -36,7 +36,7 @@ export default class InnerList extends Component {
     return (
       <div key={listId}>
         <i onClick={() => this.props.confirmDeletePopup('block', listId)} className="far fa-times-circle"></i>
-        {listId === 'addList' ? <input autoComplete="off" id='list-name-input' placeholder='Enter list name' /> : <h1 className='list-title-style'>{listName}</h1>}
+        <h1 className='list-title-style'>{listName}</h1>
         <Droppable isDropDisabled={listId === 'addList' ? true : false} droppableId={listId}>
           {(provided, snapshot) => (
             <div

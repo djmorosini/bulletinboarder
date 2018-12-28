@@ -80,8 +80,9 @@ button {
 
 #board-title {
   display: inline-block;
-  width: 400px;
+  width: 100vw;
   overflow: hidden;
+  text-align: center;
 }
 
 #list-name-input {

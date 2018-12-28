@@ -77,7 +77,7 @@ export default class Board extends Component {
     this.itemIndex = 0
     this.droppableNumber = 0
     this.state = {
-      lists: [{ listName: 'Add list', id: 'addList', items: [] }]
+      lists: []
     };
   }
 
@@ -146,22 +146,12 @@ export default class Board extends Component {
     let listArray = this.state.lists
     let newList = { listName: listName, id: listId, items: [] }
     listArray.push(newList)
-    let newListArray = []
-    let tempArray = []
-    listArray.forEach((list, index) => {
-      if (list.id === 'addList') {
-        tempArray.push(list)
-      } else {
-        newListArray.push(list)
-      }
-    })
-    newListArray.push(tempArray[0])
 
-    this.setState({ lists: newListArray })
+    this.setState({ lists: listArray })
 
     document.getElementById('list-name-input').value = ''
     this.droppableNumber++
-    this.props.saveBoard(`${this.props.boardInfo.boardId}`, newListArray)
+    this.props.saveBoard(`${this.props.boardInfo.boardId}`, listArray)
   }
 
   deleteItem = (listId, itemId) => {
@@ -292,26 +282,28 @@ export default class Board extends Component {
 
   render() {
 
-    const lists = this.state.lists.map((list, index) => (
-      <div className='list-wrap' key={list.id}>
-        <Draggable draggableId={list.id} index={index} isDragDisabled={list.id === "addList" ? true : false}>
-          {(provided, snapshot) => (
-            <div
-              className='list-style'
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
-              style={getItemStyle(
-                snapshot.isDragging,
-                provided.draggableProps.style
-              )}
-            >
-              <InnerList deleteItem={this.deleteItem} startAdd={this.startAdd} addToList={this.addToList} confirmDeletePopup={this.confirmDeletePopup} popupSwitch={this.switchItemPopup} list={list} />
-            </div>
-          )}
-        </Draggable>
-      </div>
-    ))
+    const lists = this.state.lists.map((list, index) => {
+      return (
+        <div className='list-wrap' key={list.id}>
+          <Draggable draggableId={list.id} index={index} isDragDisabled={list.id === "addList" ? true : false}>
+            {(provided, snapshot) => (
+              <div
+                className='list-style'
+                ref={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                style={getItemStyle(
+                  snapshot.isDragging,
+                  provided.draggableProps.style
+                )}
+              >
+                <InnerList deleteItem={this.deleteItem} startAdd={this.startAdd} addToList={this.addToList} confirmDeletePopup={this.confirmDeletePopup} popupSwitch={this.switchItemPopup} list={list} />
+              </div>
+            )}
+          </Draggable>
+        </div>
+      )
+    })
 
     return (
       <div id='board-wrap'>
@@ -327,6 +319,9 @@ export default class Board extends Component {
               >
                 <i onClick={() => this.props.closeBoard(`${this.props.boardInfo.boardId}`, this.state.lists)} className="far fa-times-circle left"></i>
                 {lists}
+                <div>
+                  <input autoComplete="off" id='list-name-input' placeholder='Enter list name' />
+                </div>
                 {provided.placeholder}
               </div>
             )}

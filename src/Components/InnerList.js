@@ -21,7 +21,7 @@ const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? 'lightblue' : 'lightgrey',
   padding: '8px',
   width: '250px',
-  height: '370px',
+  height: '60vh',
   border: '1px solid black',
   overflow: 'auto'
 });

@@ -110,7 +110,7 @@ export default class Board extends Component {
             listItems.push(item)
           }
         }
-        let items = listItems.sort((a, b) => {
+        listItems.sort((a, b) => {
           var nameA = a.id.toUpperCase(); // ignore upper and lowercase
           var nameB = b.id.toUpperCase(); // ignore upper and lowercase
           if (nameA < nameB) {
@@ -123,8 +123,11 @@ export default class Board extends Component {
           // names must be equal
           return 0;
         });
-        let lastItemId = items[items.length - 1].id.slice(5)
-        this.itemIndex = parseInt(lastItemId) + 1
+        if (listItems[listItems.length - 1].id !== 'addItem') {
+          let lastItemId = listItems[listItems.length - 1].id.slice(5)
+          console.log(lastItemId)
+          this.itemIndex = parseInt(lastItemId) + 1
+        }
       }
     }
     this.props.setCaretPosition('#list-name-input', 0)

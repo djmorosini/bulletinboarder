@@ -125,7 +125,6 @@ export default class Board extends Component {
         });
         if (listItems[listItems.length - 1].id !== 'addItem') {
           let lastItemId = listItems[listItems.length - 1].id.slice(5)
-          console.log(lastItemId)
           this.itemIndex = parseInt(lastItemId) + 1
         }
       }

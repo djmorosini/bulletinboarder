@@ -42,7 +42,7 @@ export default class Item extends Component {
       let listId = this.props.listId
       let itemId = this.props.itemId
       return (
-        <input onBlur={() => this.props.deleteItem(listId, itemId)} id={`${listId}-input`} className='item-content-input' placeholder='Enter item content' />
+        <input onBlur={() => this.props.deleteItem(listId, itemId)} id={`${listId}-input`} className='item-content-input' autoComplete="off" placeholder='Enter item content' />
       )
     } else {
       let itemId = this.props.itemId

@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/list-maker/static/js/runtime~main.e1354e97.js"
   },
   {
-    "revision": "aeb3fa20d9e0fa9bc5c1",
-    "url": "/list-maker/static/js/main.aeb3fa20.chunk.js"
+    "revision": "8a91c9d8962be775c3c5",
+    "url": "/list-maker/static/js/main.8a91c9d8.chunk.js"
   },
   {
     "revision": "839ad0cc3f1c79704972",
     "url": "/list-maker/static/js/1.839ad0cc.chunk.js"
   },
   {
-    "revision": "aeb3fa20d9e0fa9bc5c1",
-    "url": "/list-maker/static/css/main.baa42350.chunk.css"
+    "revision": "8a91c9d8962be775c3c5",
+    "url": "/list-maker/static/css/main.b753204a.chunk.css"
   },
   {
-    "revision": "c9353f84d5fd4ac7deb67e71f2de77fc",
+    "revision": "ae733f4e16e30f3a0b6dd5c4b67d2b85",
     "url": "/list-maker/index.html"
   }
 ];

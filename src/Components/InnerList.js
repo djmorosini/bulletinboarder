@@ -8,21 +8,21 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   padding: '16px',
   margin: `0 0 4px 0`,
   border: '1px solid black',
-  width: '200px',
+  width: '220px',
 
   // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
+  background: isDragging ? 'lightgreen' : 'lightgray',
 
   // styles we need to apply on draggables
   ...draggableStyle
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  padding: '8px',
-  width: '250px',
-  height: '60vh',
-  border: '1px solid black',
+  background: isDraggingOver ? 'lightblue' : 'gray',
+  padding: '5px',
+  width: '270px',
+  minHeight: '20vh',
+  maxHeight: '60vh',
   overflow: 'auto'
 });
 

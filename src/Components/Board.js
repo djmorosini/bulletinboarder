@@ -46,9 +46,10 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
-  padding: '10px 10px 0 15px',
+  padding: '5px',
   margin: `0 8px 0 0`,
-  height: '95%',
+  minHeight: '20%',
+  maxHeight: '95%',
   width: '280px',
   border: '1px solid black',
 
@@ -60,14 +61,12 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
+  background: isDraggingOver ? 'lightblue' : 'white',
   display: 'flex',
   padding: '20px 8px 8px 8px',
   flexWrap: 'no-wrap',
-  overflow: 'auto',
-  width: '98vw',
+  width: 'fit-content',
   height: '90vh',
-  border: '1px solid black',
   alignSelf: 'center'
 });
 
@@ -265,7 +264,7 @@ export default class Board extends Component {
         confirmPopup.style = 'display: none;'
       } else {
         confirmPopup.style = 'display: block;'
-        let list = document.getElementById('list-id-' + listId)
+        let list = document.getElementById('list-id')
         list.textContent = listId
       }
     }
@@ -319,7 +318,7 @@ export default class Board extends Component {
                 {...provided.droppableProps}
               >
                 {lists}
-                <div>
+                <div id='list-name-input-style'>
                   <input autoComplete="off" id='list-name-input' placeholder='Enter list name' />
                 </div>
                 {provided.placeholder}
@@ -339,6 +338,7 @@ export default class Board extends Component {
         <div id='confirm-list-delete-popup' className='pop-ups'>
           <i onClick={() => this.confirmDeletePopup('none')} className="far fa-times-circle"></i>
           <br />
+          <div style={{ display: 'none' }} id='list-id'></div>
           <p>Delete list?</p>
           <button onClick={() => this.deleteList(`${document.getElementById('list-id').textContent}`)} id='yes-button'>Yes</button>
           <button onClick={() => this.confirmDeletePopup('none')}>No</button>

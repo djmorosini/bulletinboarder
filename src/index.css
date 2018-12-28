@@ -80,7 +80,7 @@ button {
 
 #board-title {
   display: inline-block;
-  width: 100vw;
+  width: 60vw;
   overflow: hidden;
   text-align: center;
 }

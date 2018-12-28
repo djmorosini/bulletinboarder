@@ -73,7 +73,7 @@ export default class InnerList extends Component {
             </div>
           )}
         </Droppable>
-        {listId !== 'addList' ? <button onClick={() => this.props.startAdd(listId)}>Add item</button> : ''}
+        <button onClick={() => this.props.startAdd(listId)}>Add item</button>
       </div>
     );
   }

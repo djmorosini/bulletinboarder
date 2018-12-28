@@ -307,6 +307,7 @@ export default class Board extends Component {
 
     return (
       <div id='board-wrap'>
+        <button onClick={() => this.props.closeBoard(`${this.props.boardInfo.boardId}`, this.state.lists)}>Home</button>
         <div id='board-title'>{this.props.boardInfo.boardName}</div>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" direction="horizontal" type='COLUMN'>
@@ -317,7 +318,6 @@ export default class Board extends Component {
                 style={getListStyle(snapshot.isDraggingOver)}
                 {...provided.droppableProps}
               >
-                <i onClick={() => this.props.closeBoard(`${this.props.boardInfo.boardId}`, this.state.lists)} className="far fa-times-circle left"></i>
                 {lists}
                 <div>
                   <input autoComplete="off" id='list-name-input' placeholder='Enter list name' />

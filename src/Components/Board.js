@@ -123,7 +123,7 @@ export default class Board extends Component {
           // names must be equal
           return 0;
         });
-        if (listItems[listItems.length - 1].id !== 'addItem') {
+        if (listItems[listItems.length - 1] && listItems[listItems.length - 1].id !== 'addItem') {
           let lastItemId = listItems[listItems.length - 1].id.slice(5)
           this.itemIndex = parseInt(lastItemId) + 1
         }
@@ -143,9 +143,8 @@ export default class Board extends Component {
 
   createNewList = (listName) => {
     let listId = 'droppable' + this.droppableNumber
-    let items = [{ id: `addItem`, content: 'Add item' }]
     let listArray = this.state.lists
-    let newList = { listName: listName, id: listId, items: items }
+    let newList = { listName: listName, id: listId, items: [] }
     listArray.push(newList)
     let newListArray = []
     let tempArray = []
@@ -283,11 +282,20 @@ export default class Board extends Component {
     }
   }
 
+  startAdd = (listId) => {
+    let lists = this.state.lists
+    const result = lists.find(list => list.id === listId);
+    let newItem = { id: `addItem`, content: 'Add item' }
+    let items = result.items
+    items.push(newItem)
+    this.setState({ lists: lists.map(list => list.id === listId ? list = { ...list, items: items } : list) })
+  }
+
   render() {
 
     const lists = this.state.lists.map((list, index) => (
       <div className='list-wrap' key={list.id}>
-        <Draggable draggableId={list.id} index={index}>
+        <Draggable draggableId={list.id} index={index} isDragDisabled={list.id === "addList" ? true : false}>
           {(provided, snapshot) => (
             <div
               className='list-style'
@@ -299,7 +307,7 @@ export default class Board extends Component {
                 provided.draggableProps.style
               )}
             >
-              <InnerList addToList={this.addToList} confirmDeletePopup={this.confirmDeletePopup} popupSwitch={this.switchItemPopup} list={list} />
+              <InnerList deleteItem={this.deleteItem} startAdd={this.startAdd} addToList={this.addToList} confirmDeletePopup={this.confirmDeletePopup} popupSwitch={this.switchItemPopup} list={list} />
             </div>
           )}
         </Draggable>

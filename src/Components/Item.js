@@ -40,8 +40,9 @@ export default class Item extends Component {
   render() {
     if (this.props.itemId === 'addItem') {
       let listId = this.props.listId
+      let itemId = this.props.itemId
       return (
-        <input id={`${listId}-input`} className='item-content-input' placeholder='Enter item content' />
+        <input onBlur={() => this.props.deleteItem(listId, itemId)} id={`${listId}-input`} className='item-content-input' placeholder='Enter item content' />
       )
     } else {
       let itemId = this.props.itemId

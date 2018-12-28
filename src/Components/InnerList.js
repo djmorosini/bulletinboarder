@@ -63,7 +63,7 @@ export default class InnerList extends Component {
                           )}>
                           <i onClick={() => this.props.confirmDeletePopup('block', listId, item.id)} className="far fa-times-circle"></i>
                           <div style={{ display: 'none' }} id={`list-id-${listId}`}>{listId}</div>
-                          <Item addToList={this.props.addToList} listId={listId} itemId={item.id} content={item.content} />
+                          <Item deleteItem={this.props.deleteItem} addToList={this.props.addToList} listId={listId} itemId={item.id} content={item.content} />
                         </div>
                       )}
                     </Draggable> : <div className='no-items'></div>}
@@ -73,6 +73,7 @@ export default class InnerList extends Component {
             </div>
           )}
         </Droppable>
+        {listId !== 'addList' ? <button onClick={() => this.props.startAdd(listId)}>Add item</button> : ''}
       </div>
     );
   }

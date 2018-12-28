@@ -82,10 +82,11 @@ export default class Board extends Component {
   componentDidMount() {
     this.props.dragElement('confirm-item-delete-popup')
     this.props.dragElement('confirm-list-delete-popup')
+
     if (this.props.boardInfo.lists && this.props.boardInfo.lists.length !== 0) {
       let lists = this.props.boardInfo.lists
       this.setState({ lists: lists })
-      if (lists.length > 1) {
+      if (lists.length > 0) {
         let sortedlists = lists.slice().sort((a, b) => {
           var nameA = a.id.toUpperCase(); // ignore upper and lowercase
           var nameB = b.id.toUpperCase(); // ignore upper and lowercase

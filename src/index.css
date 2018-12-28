@@ -28,6 +28,10 @@ button {
   color: rgb(165, 0, 0);
 }
 
+.left {
+  float: left;
+}
+
 .pop-ups {
   display: none;
   height: fit-content;

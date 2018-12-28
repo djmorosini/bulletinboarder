@@ -97,7 +97,7 @@ export default class Board extends Component {
           if (nameA > nameB) {
             return 1;
           }
-        
+
           // names must be equal
           return 0;
         });
@@ -119,7 +119,7 @@ export default class Board extends Component {
           if (nameA > nameB) {
             return 1;
           }
-        
+
           // names must be equal
           return 0;
         });
@@ -136,6 +136,7 @@ export default class Board extends Component {
     let lists = this.state.lists
     const result = lists.filter(list => list.id !== id)
     this.setState({ lists: result })
+    this.props.saveBoard(`${this.props.boardInfo.boardId}`, result)
   }
 
   createNewList = (listName) => {
@@ -159,6 +160,7 @@ export default class Board extends Component {
 
     document.getElementById('list-name-input').value = ''
     this.droppableNumber++
+    this.props.saveBoard(`${this.props.boardInfo.boardId}`, newListArray)
   }
 
   deleteItem = (listId, itemId) => {
@@ -168,6 +170,7 @@ export default class Board extends Component {
     let updatedList = result.items.filter(item => item.id !== itemId)
     result.items = updatedList
     this.setState({ lists: lists.map(list => list.id === listId ? result : list) })
+    this.props.saveBoard(`${this.props.boardInfo.boardId}`, lists.map(list => list.id === listId ? result : list))
   }
 
   addToList = (listId, content) => {
@@ -183,6 +186,7 @@ export default class Board extends Component {
     this.setState({ lists: lists.map(list => list.id === listId ? list = { ...list, items: items } : list) })
 
     this.props.setCaretPosition(`#${listId}-input`, 0)
+    this.props.saveBoard(`${this.props.boardInfo.boardId}`, lists.map(list => list.id === listId ? list = { ...list, items: items } : list))
   }
 
   getList = (id) => {
@@ -207,6 +211,7 @@ export default class Board extends Component {
       this.setState({
         lists: lists
       });
+      this.props.saveBoard(`${this.props.boardInfo.boardId}`, lists)
     } else {
       const { source, destination } = result;
 
@@ -223,7 +228,7 @@ export default class Board extends Component {
         );
 
         this.setState({ lists: this.state.lists.map(list => list.id === source.droppableId ? list = { ...list, items: items } : list) })
-
+        this.props.saveBoard(`${this.props.boardInfo.boardId}`, this.state.lists.map(list => list.id === source.droppableId ? list = { ...list, items: items } : list))
       } else {
         const result = move(
           this.getList(source.droppableId),
@@ -246,6 +251,8 @@ export default class Board extends Component {
           lists: this.state.lists.map(list => list.id === source.droppableId ? list = { ...list, items: sourceArray } :
             list.id === destination.droppableId ? list = { ...list, items: destinationArray } : list)
         })
+        this.props.saveBoard(`${this.props.boardInfo.boardId}`, this.state.lists.map(list => list.id === source.droppableId ? list = { ...list, items: sourceArray } :
+          list.id === destination.droppableId ? list = { ...list, items: destinationArray } : list))
       }
     }
   }
@@ -299,8 +306,6 @@ export default class Board extends Component {
 
     return (
       <div id='board-wrap'>
-        <button onClick={() => this.props.closeBoard(`${this.props.boardInfo.boardId}`, this.state.lists)} >Close board</button>
-        <button onClick={() => this.props.saveBoard(`${this.props.boardInfo.boardId}`, this.state.lists)} >Save board</button>
         <div id='board-title'>{this.props.boardInfo.boardName}</div>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable" direction="horizontal" type='COLUMN'>
@@ -311,6 +316,7 @@ export default class Board extends Component {
                 style={getListStyle(snapshot.isDraggingOver)}
                 {...provided.droppableProps}
               >
+                <i onClick={() => this.props.closeBoard(`${this.props.boardInfo.boardId}`, this.state.lists)} className="far fa-times-circle left"></i>
                 {lists}
                 {provided.placeholder}
               </div>

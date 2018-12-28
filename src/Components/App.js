@@ -94,6 +94,7 @@ export default class App extends Component {
     boards.push(newBoard)
     this.setState({ boards: boards, currentBoard: newBoard })
     this.boardNumber++
+    this.saveBoard(newBoard.boardId, newBoard.lists)
   }
 
   saveBoard = (id, lists) => {
@@ -116,7 +117,6 @@ export default class App extends Component {
     } else {
       newBoards = this.state.boards.map((board) => board.boardId === id ? result : board)
     }
-    console.log(newBoards)
 
     this.setState({ boards: newBoards })
     localStorage.setItem('boards', JSON.stringify(newBoards))
@@ -133,6 +133,7 @@ export default class App extends Component {
     const result = boards.find(board => board.boardId === id);
     result.lists = lists
     this.setState({ boards: this.state.boards.map((board) => board.boardId === id ? result : board) })
+    this.saveBoard(id, lists)
     this.setState({ currentBoard: null })
   }
 

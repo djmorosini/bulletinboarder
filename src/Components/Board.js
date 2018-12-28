@@ -49,7 +49,6 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   padding: '5px',
   margin: `0 8px 0 0`,
   minHeight: '20%',
-  maxHeight: '95%',
   width: '280px',
   border: '1px solid black',
 
@@ -66,7 +65,7 @@ const getListStyle = (isDraggingOver) => ({
   padding: '20px 8px 8px 8px',
   flexWrap: 'no-wrap',
   width: 'fit-content',
-  height: '90vh',
+  height: 'fit-content',
   alignSelf: 'center'
 });
 
@@ -110,17 +109,9 @@ export default class Board extends Component {
           }
         }
         listItems.sort((a, b) => {
-          var nameA = a.id.toUpperCase(); // ignore upper and lowercase
-          var nameB = b.id.toUpperCase(); // ignore upper and lowercase
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
-
-          // names must be equal
-          return 0;
+          var aID = a.id.slice(5)
+          var bID = b.id.slice(5)
+          return aID - bID
         });
         if (listItems[listItems.length - 1] && listItems[listItems.length - 1].id !== 'addItem') {
           let lastItemId = listItems[listItems.length - 1].id.slice(5)

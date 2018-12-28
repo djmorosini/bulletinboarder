@@ -22,7 +22,7 @@ const getListStyle = (isDraggingOver) => ({
   padding: '5px',
   width: '270px',
   minHeight: '20vh',
-  maxHeight: '60vh',
+  maxHeight: '70vh',
   overflow: 'auto'
 });
 

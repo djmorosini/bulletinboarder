@@ -1,8 +1,8 @@
-[List Maker](https://djmorosini.github.io/list-maker/)
+[story-boarding](https://djmorosini.github.io/story-boarding/)
 
 To run locally;
 
-1. git clone https://github.com/djmorosini/list-maker.git
+1. git clone https://github.com/djmorosini/story-boarding.git
 2. npm install
 3. npm start
 

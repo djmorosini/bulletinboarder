@@ -1,13 +1,13 @@
 {
-  "main.css": "/list-maker/static/css/main.b753204a.chunk.css",
-  "main.js": "/list-maker/static/js/main.8a91c9d8.chunk.js",
-  "main.js.map": "/list-maker/static/js/main.8a91c9d8.chunk.js.map",
-  "static/js/1.839ad0cc.chunk.js": "/list-maker/static/js/1.839ad0cc.chunk.js",
-  "static/js/1.839ad0cc.chunk.js.map": "/list-maker/static/js/1.839ad0cc.chunk.js.map",
-  "runtime~main.js": "/list-maker/static/js/runtime~main.e1354e97.js",
-  "runtime~main.js.map": "/list-maker/static/js/runtime~main.e1354e97.js.map",
-  "static/css/main.b753204a.chunk.css.map": "/list-maker/static/css/main.b753204a.chunk.css.map",
-  "index.html": "/list-maker/index.html",
-  "precache-manifest.467208bec49388a3d804db9c2efbc9b4.js": "/list-maker/precache-manifest.467208bec49388a3d804db9c2efbc9b4.js",
-  "service-worker.js": "/list-maker/service-worker.js"
+  "main.css": "/story-boarding/static/css/main.bdf88f37.chunk.css",
+  "main.js": "/story-boarding/static/js/main.86789fe1.chunk.js",
+  "main.js.map": "/story-boarding/static/js/main.86789fe1.chunk.js.map",
+  "static/js/1.839ad0cc.chunk.js": "/story-boarding/static/js/1.839ad0cc.chunk.js",
+  "static/js/1.839ad0cc.chunk.js.map": "/story-boarding/static/js/1.839ad0cc.chunk.js.map",
+  "runtime~main.js": "/story-boarding/static/js/runtime~main.edb3dd54.js",
+  "runtime~main.js.map": "/story-boarding/static/js/runtime~main.edb3dd54.js.map",
+  "static/css/main.bdf88f37.chunk.css.map": "/story-boarding/static/css/main.bdf88f37.chunk.css.map",
+  "index.html": "/story-boarding/index.html",
+  "precache-manifest.f0d76d8da65c391dd9aedfdc793c91f8.js": "/story-boarding/precache-manifest.f0d76d8da65c391dd9aedfdc793c91f8.js",
+  "service-worker.js": "/story-boarding/service-worker.js"
 }

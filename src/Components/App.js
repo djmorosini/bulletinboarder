@@ -190,7 +190,7 @@ export default class App extends Component {
       })
       return (
         <div id='app'>
-          <h1>List-Maker</h1>
+          <h1>story-boarding</h1>
           <div>
             <h3>Boards</h3>
             <div id='board-dropdown'>

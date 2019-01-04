@@ -1,8 +1,8 @@
 {
-  "name": "list-maker",
+  "name": "story-boarding",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://djmorosini.github.io/list-maker",
+  "homepage": "https://djmorosini.github.io/story-boarding",
   "dependencies": {
     "react": "^16.6.3",
     "react-beautiful-dnd": "^10.0.1",

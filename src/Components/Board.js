@@ -65,7 +65,8 @@ const getListStyle = (isDraggingOver) => ({
   padding: '8px',
   flexWrap: 'no-wrap',
   width: 'fit-content',
-  height: 'fit-content',
+  minWidth: '98vw',
+  height: '92vh',
   alignSelf: 'center'
 });
 

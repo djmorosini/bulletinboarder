@@ -1,14 +1,14 @@
 {
-  "main.css": "/bulletinboarder/static/css/main.31f1693c.chunk.css",
-  "main.js": "/bulletinboarder/static/js/main.a5c0759d.chunk.js",
-  "main.js.map": "/bulletinboarder/static/js/main.a5c0759d.chunk.js.map",
+  "main.css": "/bulletinboarder/static/css/main.7d9fe20a.chunk.css",
+  "main.js": "/bulletinboarder/static/js/main.6ff7897a.chunk.js",
+  "main.js.map": "/bulletinboarder/static/js/main.6ff7897a.chunk.js.map",
   "static/js/1.839ad0cc.chunk.js": "/bulletinboarder/static/js/1.839ad0cc.chunk.js",
   "static/js/1.839ad0cc.chunk.js.map": "/bulletinboarder/static/js/1.839ad0cc.chunk.js.map",
   "runtime~main.js": "/bulletinboarder/static/js/runtime~main.3759c925.js",
   "runtime~main.js.map": "/bulletinboarder/static/js/runtime~main.3759c925.js.map",
   "static/media/index.css": "/bulletinboarder/static/media/bulletin.217b336f.jpg",
-  "static/css/main.31f1693c.chunk.css.map": "/bulletinboarder/static/css/main.31f1693c.chunk.css.map",
+  "static/css/main.7d9fe20a.chunk.css.map": "/bulletinboarder/static/css/main.7d9fe20a.chunk.css.map",
   "index.html": "/bulletinboarder/index.html",
-  "precache-manifest.f7e455d9d18362fa6c77a23863547917.js": "/bulletinboarder/precache-manifest.f7e455d9d18362fa6c77a23863547917.js",
+  "precache-manifest.56479788d4d77036bf9f2fb2c8c79abf.js": "/bulletinboarder/precache-manifest.56479788d4d77036bf9f2fb2c8c79abf.js",
   "service-worker.js": "/bulletinboarder/service-worker.js"
 }

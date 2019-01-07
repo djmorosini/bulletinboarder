@@ -1,7 +1,7 @@
 {
   "main.css": "/bulletinboarder/static/css/main.7d9fe20a.chunk.css",
-  "main.js": "/bulletinboarder/static/js/main.6ff7897a.chunk.js",
-  "main.js.map": "/bulletinboarder/static/js/main.6ff7897a.chunk.js.map",
+  "main.js": "/bulletinboarder/static/js/main.3d65878a.chunk.js",
+  "main.js.map": "/bulletinboarder/static/js/main.3d65878a.chunk.js.map",
   "static/js/1.839ad0cc.chunk.js": "/bulletinboarder/static/js/1.839ad0cc.chunk.js",
   "static/js/1.839ad0cc.chunk.js.map": "/bulletinboarder/static/js/1.839ad0cc.chunk.js.map",
   "runtime~main.js": "/bulletinboarder/static/js/runtime~main.3759c925.js",
@@ -9,6 +9,6 @@
   "static/media/index.css": "/bulletinboarder/static/media/bulletin.217b336f.jpg",
   "static/css/main.7d9fe20a.chunk.css.map": "/bulletinboarder/static/css/main.7d9fe20a.chunk.css.map",
   "index.html": "/bulletinboarder/index.html",
-  "precache-manifest.56479788d4d77036bf9f2fb2c8c79abf.js": "/bulletinboarder/precache-manifest.56479788d4d77036bf9f2fb2c8c79abf.js",
+  "precache-manifest.0cfa3bcba3c7a45f610f40253fb8d195.js": "/bulletinboarder/precache-manifest.0cfa3bcba3c7a45f610f40253fb8d195.js",
   "service-worker.js": "/bulletinboarder/service-worker.js"
 }

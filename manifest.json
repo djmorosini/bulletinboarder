@@ -3,7 +3,7 @@
   "name": "story-boarding",
   "icons": [
     {
-      "src": "list-icon/ong",
+      "src": "board-icon/ong",
       "sizes": "32x32",
       "type": "image/png"
     }

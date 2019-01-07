@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/story-boarding/static/css/main.bdf88f37.chunk.css"
   },
   {
-    "revision": "96daad1cab80e5419e882681e2a33eb0",
+    "revision": "8aa01814aeae6450e58a9193aeb3ee87",
     "url": "/story-boarding/index.html"
   }
 ];

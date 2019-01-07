@@ -181,10 +181,12 @@ export default class App extends Component {
       let boards = this.state.boards.map((board) => {
         return (
           <div className='board-names-wrap' key={board.boardId}>
-            <div className='board-names' onClick={() => this.loadBoard(`${board.boardId}`)}>
-              {board.boardName}
+            <div className='board-close'>
+              <i onClick={() => this.confirmBoardDeletePopup('block', board.boardId)} className="far fa-times-circle"></i>
+              <div className='board-names' onClick={() => this.loadBoard(`${board.boardId}`)}>
+                {board.boardName}
+              </div>
             </div>
-            <i onClick={() => this.confirmBoardDeletePopup('block', board.boardId)} className="far fa-times-circle"></i>
           </div>
         )
       })

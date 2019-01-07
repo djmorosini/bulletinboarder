@@ -50,21 +50,25 @@ button {
 }
 
 .board-names {
-  overflow: hidden;
-  margin-bottom: 5px;
   width: 300px;
   min-width: 200px;
   overflow: hidden;
   text-transform: capitalize;
+  cursor: pointer;
+  padding: 5px;
 }
 
 .board-names:hover {
   background-color: lightgreen;
 }
 
+.board-names:hover .board-close {
+  background-color: lightgreen;
+}
+
 .board-names-wrap {
   background-color: white;
-  padding: 5px;
+  margin-bottom: 5px;
   border: 1px solid black;
   display: flex;
   width: fit-content;

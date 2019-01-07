@@ -192,7 +192,9 @@ export default class App extends Component {
       })
       return (
         <div id='app'>
+          <div id='app-name'>
           <h1 className='titles'>BulletinBoarder</h1>
+          </div>
           <div>
             <h3 className='titles'><u>Boards:</u></h3>
             <div id='board-dropdown'>

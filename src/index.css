@@ -58,14 +58,6 @@ button {
   padding: 5px;
 }
 
-.board-names:hover {
-  background-color: lightgreen;
-}
-
-.board-names:hover .board-close {
-  background-color: lightgreen;
-}
-
 .board-names-wrap {
   background-color: white;
   margin-bottom: 5px;
@@ -110,6 +102,20 @@ button {
   height: 60px;
   display: flex;
   align-items: center;
+}
+
+#app-name {
+  display: flex;
+  justify-content: center
+}
+
+#board-title-wrap {
+  display: flex;
+  justify-content: center
+}
+
+#home-button {
+  position: absolute;
 }
 
 @media (max-width: 800px){

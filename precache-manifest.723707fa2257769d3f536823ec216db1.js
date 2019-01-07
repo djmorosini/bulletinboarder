@@ -8,19 +8,19 @@ self.__precacheManifest = [
     "url": "/story-boarding/static/js/runtime~main.edb3dd54.js"
   },
   {
-    "revision": "c616dda25e78bdce4663",
-    "url": "/story-boarding/static/js/main.c616dda2.chunk.js"
+    "revision": "ef86bba53e6d89c3170e",
+    "url": "/story-boarding/static/js/main.ef86bba5.chunk.js"
   },
   {
     "revision": "839ad0cc3f1c79704972",
     "url": "/story-boarding/static/js/1.839ad0cc.chunk.js"
   },
   {
-    "revision": "c616dda25e78bdce4663",
-    "url": "/story-boarding/static/css/main.8a68c1e5.chunk.css"
+    "revision": "ef86bba53e6d89c3170e",
+    "url": "/story-boarding/static/css/main.2a4966da.chunk.css"
   },
   {
-    "revision": "8c07e2790b6b8ea975c435f8eb10ccc1",
+    "revision": "150152c57c88044ac6d7f9d3c73754cd",
     "url": "/story-boarding/index.html"
   }
 ];

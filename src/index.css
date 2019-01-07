@@ -6,6 +6,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
+  background-color: tan;
+  background-image: url("./bulletin.jpg");
 }
 
 code {
@@ -15,7 +17,13 @@ code {
 
 h1 {
   font-size: 20px;
-  text-align: center;
+}
+
+.titles {
+  background-color: white;
+  border: 1px solid black;
+  width: fit-content;
+  padding: 10px;
 }
 
 button {
@@ -47,6 +55,7 @@ button {
   width: 300px;
   min-width: 200px;
   overflow: hidden;
+  text-transform: capitalize;
 }
 
 .board-names:hover {
@@ -54,7 +63,7 @@ button {
 }
 
 .board-names-wrap {
-  background-color: lightgray;
+  background-color: white;
   padding: 5px;
   border: 1px solid black;
   display: flex;
@@ -63,10 +72,12 @@ button {
 
 .list-title-style {
   overflow: hidden;
-}
-
-.item-style {
-  overflow: hidden;
+  background-color: white;
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+  text-decoration: underline;
+  text-transform: capitalize;
 }
 
 #add-item-container {
@@ -79,6 +90,9 @@ button {
   width: 60vw;
   overflow: hidden;
   text-align: center;
+  background-color: white;
+  border: 1px solid black;
+  text-transform: capitalize;
 }
 
 #list-name-input {
@@ -86,10 +100,10 @@ button {
 }
 
 #list-name-input-style {
+  background-color: white;
+  border: 1px solid black;
   width: 250px;
   height: 60px;
-  background-color: gray;
-  border: 1px solid black;
   display: flex;
   align-items: center;
 }

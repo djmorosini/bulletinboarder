@@ -46,21 +46,21 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
-  padding: '5px',
+  // padding: '5px',
   margin: `0 8px 0 0`,
   minHeight: '20vh',
   width: '280px',
-  border: '1px solid black',
+  // border: '1px solid black',
 
   // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
+  // background: isDragging ? 'lightgreen' : 'grey',
 
   // styles we need to apply on draggables
   ...draggableStyle
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'lightblue' : 'white',
+  // background: isDraggingOver ? 'lightblue' : 'white',
   display: 'flex',
   padding: '8px',
   flexWrap: 'no-wrap',

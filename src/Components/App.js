@@ -190,9 +190,9 @@ export default class App extends Component {
       })
       return (
         <div id='app'>
-          <h1>story-boarding</h1>
+          <h1 className='titles'>story-boarding</h1>
           <div>
-            <h3>Boards</h3>
+            <h3 className='titles'><u>Boards:</u></h3>
             <div id='board-dropdown'>
               {boards.length > 0 ? boards.map(board => board) : 'No boards'}
             </div>

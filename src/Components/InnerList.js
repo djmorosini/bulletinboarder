@@ -8,18 +8,20 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   padding: '16px',
   margin: `0 0 4px 0`,
   border: '1px solid black',
-  width: '220px',
+  width: '215px',
+  height: 'fit-content',
+  wordBreak: 'break-word',
 
   // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'lightgray',
+  background: isDragging ? 'lightgreen' : 'white',
 
   // styles we need to apply on draggables
   ...draggableStyle
 });
 
 const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'lightblue' : 'gray',
-  padding: '5px',
+  // background: isDraggingOver ? 'lightblue' : 'gray',
+  // padding: '5px',
   width: '270px',
   minHeight: '20vh',
   maxHeight: '70vh',
@@ -35,8 +37,7 @@ export default class InnerList extends Component {
 
     return (
       <div key={listId}>
-        <i onClick={() => this.props.confirmDeletePopup('block', listId)} className="far fa-times-circle"></i>
-        <h1 className='list-title-style'>{listName}</h1>
+        <h1 className='list-title-style'>{listName}<i onClick={() => this.props.confirmDeletePopup('block', listId)} className="far fa-times-circle"></i></h1>
         <Droppable isDropDisabled={listId === 'addList' ? true : false} droppableId={listId}>
           {(provided, snapshot) => (
             <div

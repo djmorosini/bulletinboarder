@@ -8,19 +8,19 @@ self.__precacheManifest = [
     "url": "/bulletinboarder/static/js/runtime~main.3759c925.js"
   },
   {
-    "revision": "3d65878a918b053a4e47",
-    "url": "/bulletinboarder/static/js/main.3d65878a.chunk.js"
+    "revision": "e265d6e339a994b1f109",
+    "url": "/bulletinboarder/static/js/main.e265d6e3.chunk.js"
   },
   {
     "revision": "839ad0cc3f1c79704972",
     "url": "/bulletinboarder/static/js/1.839ad0cc.chunk.js"
   },
   {
-    "revision": "3d65878a918b053a4e47",
-    "url": "/bulletinboarder/static/css/main.7d9fe20a.chunk.css"
+    "revision": "e265d6e339a994b1f109",
+    "url": "/bulletinboarder/static/css/main.8f3ca472.chunk.css"
   },
   {
-    "revision": "06f49f5b3e3c85a3eb0da29d15e29227",
+    "revision": "f1a62879e657f70b319c05bd8777a07c",
     "url": "/bulletinboarder/index.html"
   }
 ];

@@ -1,8 +1,8 @@
-[story-boarding](https://djmorosini.github.io/story-boarding/)
+[BulletinBoarder](https://djmorosini.github.io/bulletinboarder/)
 
 To run locally;
 
-1. git clone https://github.com/djmorosini/story-boarding.git
+1. git clone https://github.com/djmorosini/bulletinboarder.git
 2. npm install
 3. npm start
 

@@ -1,13 +1,14 @@
 {
-  "main.css": "/story-boarding/static/css/main.bdf88f37.chunk.css",
-  "main.js": "/story-boarding/static/js/main.95cc6a2a.chunk.js",
-  "main.js.map": "/story-boarding/static/js/main.95cc6a2a.chunk.js.map",
+  "main.css": "/story-boarding/static/css/main.8a68c1e5.chunk.css",
+  "main.js": "/story-boarding/static/js/main.c616dda2.chunk.js",
+  "main.js.map": "/story-boarding/static/js/main.c616dda2.chunk.js.map",
   "static/js/1.839ad0cc.chunk.js": "/story-boarding/static/js/1.839ad0cc.chunk.js",
   "static/js/1.839ad0cc.chunk.js.map": "/story-boarding/static/js/1.839ad0cc.chunk.js.map",
   "runtime~main.js": "/story-boarding/static/js/runtime~main.edb3dd54.js",
   "runtime~main.js.map": "/story-boarding/static/js/runtime~main.edb3dd54.js.map",
-  "static/css/main.bdf88f37.chunk.css.map": "/story-boarding/static/css/main.bdf88f37.chunk.css.map",
+  "static/media/index.css": "/story-boarding/static/media/bulletin.217b336f.jpg",
+  "static/css/main.8a68c1e5.chunk.css.map": "/story-boarding/static/css/main.8a68c1e5.chunk.css.map",
   "index.html": "/story-boarding/index.html",
-  "precache-manifest.d7d530c56c12f3d5f6b24bc3ebc49fbd.js": "/story-boarding/precache-manifest.d7d530c56c12f3d5f6b24bc3ebc49fbd.js",
+  "precache-manifest.f8e3e50294af4eada15ec644ad0a38b8.js": "/story-boarding/precache-manifest.f8e3e50294af4eada15ec644ad0a38b8.js",
   "service-worker.js": "/story-boarding/service-worker.js"
 }
